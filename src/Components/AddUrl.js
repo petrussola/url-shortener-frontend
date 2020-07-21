@@ -1,15 +1,33 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+require('dotenv').config();
 
 const AddUrl = () => {
 	const [urlInput, setUrlInput] = useState('');
 
 	const changeUrlHandler = (e) => {
-		console.log(e.target.value);
 		setUrlInput(e.target.value);
 	};
 
+	const shortenUrl = (e) => {
+		e.preventDefault();
+		const newUrl = `https://${urlInput}`;
+		let baseApi;
+		if (process.env.NODE_ENV === 'development') {
+			baseApi = 'http://localhost:5000';
+		}
+		axios
+			.post(`${baseApi}/create-url`, { newUrl })
+			.then((res) => {
+				debugger;
+			})
+			.catch((error) => {
+				debugger;
+			});
+	};
+
 	return (
-		<form>
+		<form onSubmit={(e) => shortenUrl(e)}>
 			<label htmlFor='url-input'>https://</label>
 			<input
 				type='text'
