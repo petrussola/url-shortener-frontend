@@ -3,6 +3,7 @@ import './App.css';
 import { Route } from 'react-router-dom';
 
 import FetchUrl from './Components/FetchUrl';
+import AddUrl from './Components/AddUrl';
 
 function App() {
 	const [redirect, setRedirect] = useState(false);
@@ -24,6 +25,7 @@ function App() {
 					/>
 				)}
 			/>
+			<Route path='/' component={AddUrl} />
 		</div>
 	);
 }
