@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 
-const FetchUrl = (props) => {
-	const [redirect, setRedirect] = useState(false);
-	const [error, setError] = useState(false);
-	const [newUrl, setNewUrl] = useState(null);
-
+const FetchUrl = ({
+	match,
+	redirect,
+	setRedirect,
+	error,
+	setError,
+	newUrl,
+	setNewUrl,
+}) => {
 	// grab the param after '/' in the url because this points to the real URL in the server
-	const { shortUrl } = props.match.params;
+	const { shortUrl } = match.params;
 
 	// fetch real URL from the server by passing the url param
 	useEffect(() => {
@@ -28,7 +32,7 @@ const FetchUrl = (props) => {
 				setError(true);
 				setRedirect(false);
 			});
-	}, [shortUrl]);
+	}, [setError, setNewUrl, setRedirect, shortUrl]);
 	// when we have data back from server and not an error
 	if (redirect && !error) {
 		// redirect to new url
