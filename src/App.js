@@ -9,6 +9,7 @@ function App() {
 	const [redirect, setRedirect] = useState(false);
 	const [error, setError] = useState(false);
 	const [newUrl, setNewUrl] = useState(null);
+	const [shortUrl, setShortUrl] = useState(null);
 	return (
 		<div className='App'>
 			<Route
@@ -25,7 +26,13 @@ function App() {
 					/>
 				)}
 			/>
-			<Route path='/' component={AddUrl} />
+			<Route
+				exact
+				path='/'
+				render={(props) => (
+					<AddUrl {...props} shortUrl={shortUrl} setShortUrl={setShortUrl} />
+				)}
+			/>
 		</div>
 	);
 }
