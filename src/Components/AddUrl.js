@@ -7,6 +7,7 @@ require('dotenv').config();
 const AddUrl = ({ location, match, history, shortUrl, setShortUrl }) => {
 	const [urlInput, setUrlInput] = useState('');
 	const [protocolInput, setProtocolInput] = useState('https://');
+	const [error, setError] = useState(null);
 
 	const hostname = window.location.href;
 
@@ -22,24 +23,22 @@ const AddUrl = ({ location, match, history, shortUrl, setShortUrl }) => {
 		e.preventDefault();
 		// clean input field
 		setUrlInput('');
-		// add https
+		// add https or http
 		const newUrl = `${protocolInput}${urlInput}`;
-		// let baseApi;
-		// if (process.env.NODE_ENV === 'development') {
-		// 	baseApi = process.env.REACT_APP_BASE_API;
-		// }
+		// api call
 		axios
 			.post(`${baseApi}/create-url`, { newUrl })
 			.then((res) => {
 				setShortUrl(res.data.url);
 			})
 			.catch((error) => {
-				debugger;
+				setError(error.message);
 			});
 	};
 
 	return (
 		<div>
+			{error ? <h5 id='error-message'>{error}</h5> : null}
 			<form onSubmit={(e) => shortenUrl(e)}>
 				<select
 					onChange={(e) => changeProtocolHandler(e)}
