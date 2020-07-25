@@ -1,9 +1,12 @@
+import baseApi from '../Config/config';
+
 import React, { useState } from 'react';
 import axios from 'axios';
 require('dotenv').config();
 
 const AddUrl = ({ location, match, history, shortUrl, setShortUrl }) => {
 	const [urlInput, setUrlInput] = useState('');
+	const [protocolInput, setProtocolInput] = useState('https://');
 
 	const hostname = window.location.href;
 
@@ -11,16 +14,20 @@ const AddUrl = ({ location, match, history, shortUrl, setShortUrl }) => {
 		setUrlInput(e.target.value);
 	};
 
+	const changeProtocolHandler = (e) => {
+		setProtocolInput(e.target.value);
+	};
+
 	const shortenUrl = (e) => {
-        e.preventDefault();
-        // clean input field
-        setUrlInput('');
-        // add https
-		const newUrl = `https://${urlInput}`;
-		let baseApi;
-		if (process.env.NODE_ENV === 'development') {
-			baseApi = 'http://localhost:5000';
-		}
+		e.preventDefault();
+		// clean input field
+		setUrlInput('');
+		// add https
+		const newUrl = `${protocolInput}${urlInput}`;
+		// let baseApi;
+		// if (process.env.NODE_ENV === 'development') {
+		// 	baseApi = process.env.REACT_APP_BASE_API;
+		// }
 		axios
 			.post(`${baseApi}/create-url`, { newUrl })
 			.then((res) => {
@@ -34,7 +41,13 @@ const AddUrl = ({ location, match, history, shortUrl, setShortUrl }) => {
 	return (
 		<div>
 			<form onSubmit={(e) => shortenUrl(e)}>
-				<label htmlFor='url-input'>https://</label>
+				<select
+					onChange={(e) => changeProtocolHandler(e)}
+					value={protocolInput}
+				>
+					<option value='http://'>http://</option>
+					<option value='https://'>https://</option>
+				</select>
 				<input
 					type='text'
 					id='url-input'
