@@ -13,8 +13,6 @@ const AddUrl = ({ location, match, history, shortUrl, setShortUrl }) => {
 	const [error, setError] = useState(null);
 	const textAreaRef = useRef(null);
 
-
-
 	const changeUrlHandler = (e) => {
 		setUrlInput(e.target.value);
 	};
@@ -30,6 +28,8 @@ const AddUrl = ({ location, match, history, shortUrl, setShortUrl }) => {
 		// add https or http
 		const newUrl = `${protocolInput}${urlInput}`;
 		// api call
+		console.log(baseApi, '<< baseApi');
+		console.log(process.env.NODE_ENV, '<< node_env');
 		axios
 			.post(`${baseApi}/create-url`, { newUrl })
 			.then((res) => {
