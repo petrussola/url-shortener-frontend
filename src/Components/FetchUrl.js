@@ -16,6 +16,8 @@ const FetchUrl = ({
 
 	// fetch real URL from the server by passing the url param
 	useEffect(() => {
+		console.log(baseApi, '<< baseApi');
+		console.log(process.env.NODE_ENV, '<< node_env');
 		axios
 			.get(`${baseApi}/${shortUrl}`)
 			.then((res) => {
