@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
-import { baseApi } from '../Config/config';
+import baseApi from '../Config/config';
 
 const FetchUrl = ({
 	match,
