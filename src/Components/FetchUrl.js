@@ -13,7 +13,7 @@ const FetchUrl = ({
 }) => {
 	// grab the param after '/' in the url because this points to the real URL in the server
 	const { shortUrl } = match.params;
-
+	console.log('yay');
 	// fetch real URL from the server by passing the url param
 	useEffect(() => {
 		console.log(baseApi, '<< baseApi');
