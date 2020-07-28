@@ -11,6 +11,7 @@ const AddUrl = ({ location, match, history, shortUrl, setShortUrl }) => {
 	const [urlInput, setUrlInput] = useState('');
 	const [protocolInput, setProtocolInput] = useState('https://');
 	const [error, setError] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
 	const textAreaRef = useRef(null);
 
 	const changeUrlHandler = (e) => {
@@ -23,19 +24,23 @@ const AddUrl = ({ location, match, history, shortUrl, setShortUrl }) => {
 
 	const shortenUrl = (e) => {
 		e.preventDefault();
+		// set loading state to ture
+		setIsLoading(true);
 		// clean input field
 		setUrlInput('');
 		// add https or http
 		const newUrl = `${protocolInput}${urlInput}`;
 		// api call
-		console.log(baseApi, '<< baseApi');
-		console.log(process.env.NODE_ENV, '<< node_env');
 		axios
 			.post(`${baseApi}/create-url`, { newUrl })
 			.then((res) => {
+				// clean loading state
+				setIsLoading(false);
 				setShortUrl(res.data.url);
 			})
 			.catch((error) => {
+				// clean loading state
+				setIsLoading(false);
 				setError(error.message);
 			});
 	};
@@ -64,6 +69,7 @@ const AddUrl = ({ location, match, history, shortUrl, setShortUrl }) => {
 		<div>
 			{/* if there is an error it displays the message on top */}
 			{error ? <h5 id='error-message'>{error}</h5> : null}
+			{isLoading ? <h5>Loading...</h5> : null}
 			<form onSubmit={(e) => shortenUrl(e)}>
 				<select
 					onChange={(e) => changeProtocolHandler(e)}
