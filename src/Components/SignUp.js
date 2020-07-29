@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+
+import baseApi from '../Config/config';
 
 const initialForm = {
 	email: '',
@@ -8,7 +11,7 @@ const initialForm = {
 
 const SignUp = () => {
 	const [formValue, setFormValue] = useState(initialForm);
-	const [errorMessage, setErrorMessage] = useState('');
+	const [displayMessage, setDisplayMessage] = useState('');
 
 	// when user inputs data in the form
 	const onChangeFormInput = (e) => {
@@ -19,19 +22,31 @@ const SignUp = () => {
 	const onSubmitForm = (e) => {
 		e.preventDefault();
 		// clear error message, if any
-		setErrorMessage('');
+		setDisplayMessage('');
 		// if passwords don't match, set error message
 		if (formValue.password !== formValue.repeatPassword) {
-			setErrorMessage("Passwords don't match");
+			setDisplayMessage("Passwords don't match");
 		} else {
 			//otherwise
-			console.log(formValue);
+			axios
+				.post(`${baseApi}/auth/signup`, {
+					email: formValue.email,
+					password: formValue.password,
+				})
+				.then((res) => {
+					// set succesful message
+					setDisplayMessage(res.data.message);
+				})
+				.catch((error) => {
+					// set error message
+					setDisplayMessage(error.response.data.message);
+				});
 		}
 	};
 
 	return (
 		<div>
-			{errorMessage ? <h5>{errorMessage}</h5> : null}
+			{displayMessage ? <h5>{displayMessage}</h5> : null}
 			<form onSubmit={onSubmitForm}>
 				<label htmlFor='email'>Email</label>
 				<input
