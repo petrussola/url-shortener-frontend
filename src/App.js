@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import FetchUrl from './Components/FetchUrl';
 import AddUrl from './Components/AddUrl';
 import SignUp from './Components/SignUp';
+import Login from './Components/Login';
 
 function App() {
 	const [redirect, setRedirect] = useState(false);
@@ -15,6 +16,7 @@ function App() {
 		<div className='App'>
 			<Switch>
 				<Route path='/signup' component={SignUp} />
+				<Route path='/login' component={Login} />
 				<Route
 					path='/:shortUrl'
 					render={(props) => (
