@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-import baseApi from '../Config/config';
+import baseApi from '../../Config/config';
+
+// components
+import FeedbackMessage from './FeedbackMessage';
 
 const initialForm = {
 	email: '',
@@ -9,9 +12,9 @@ const initialForm = {
 	repeatPassword: '',
 };
 
-const SignUp = () => {
+const SignUp = ({ displayMessage, setDisplayMessage }) => {
 	const [formValue, setFormValue] = useState(initialForm);
-	const [displayMessage, setDisplayMessage] = useState('');
+	// const [displayMessage, setDisplayMessage] = useState('');
 
 	// when user inputs data in the form
 	const onChangeFormInput = (e) => {
@@ -46,7 +49,9 @@ const SignUp = () => {
 
 	return (
 		<div>
-			{displayMessage ? <h5>{displayMessage}</h5> : null}
+			{displayMessage ? (
+				<FeedbackMessage displayMessage={displayMessage} />
+			) : null}
 			<form onSubmit={onSubmitForm}>
 				<label htmlFor='email'>Email</label>
 				<input

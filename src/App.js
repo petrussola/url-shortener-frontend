@@ -4,19 +4,41 @@ import { Route, Switch } from 'react-router-dom';
 
 import FetchUrl from './Components/FetchUrl';
 import AddUrl from './Components/AddUrl';
-import SignUp from './Components/SignUp';
-import Login from './Components/Login';
+import SignUp from './Components/Auth/SignUp';
+import Login from './Components/Auth/Login';
 
 function App() {
 	const [redirect, setRedirect] = useState(false);
 	const [error, setError] = useState(false);
 	const [newUrl, setNewUrl] = useState(null);
 	const [shortUrl, setShortUrl] = useState(null);
+
+	// auth related state
+	const [displayMessage, setDisplayMessage] = useState(''); // above form feedback message to user when signing up or logging in
+
 	return (
 		<div className='App'>
 			<Switch>
-				<Route path='/signup' component={SignUp} />
-				<Route path='/login' component={Login} />
+				<Route
+					path='/signup'
+					render={(props) => (
+						<SignUp
+							{...props}
+							displayMessage={displayMessage}
+							setDisplayMessage={setDisplayMessage}
+						/>
+					)}
+				/>
+				<Route
+					path='/login'
+					render={(props) => (
+						<Login
+							{...props}
+							displayMessage={displayMessage}
+							setDisplayMessage={setDisplayMessage}
+						/>
+					)}
+				/>
 				<Route
 					path='/:shortUrl'
 					render={(props) => (
