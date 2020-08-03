@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-import baseApi from '../../Config/config';
-
 // components
 import FeedbackMessage from './FeedbackMessage';
 
@@ -24,7 +22,7 @@ const Login = ({ displayMessage, setDisplayMessage, history }) => {
 		e.preventDefault();
 		setDisplayMessage('');
 		axios
-			.post(`${baseApi}/auth/login`, logInUser)
+			.post(`/auth/login`, logInUser)
 			.then((res) => {
 				// set message to success
 				setDisplayMessage(res.data.message);
