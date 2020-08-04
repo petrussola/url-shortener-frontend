@@ -19,7 +19,12 @@ function App() {
 
 	return (
 		<div className='App'>
-			<Route path='/' component={Logout} />
+			<Route
+				path='/'
+				render={(props) => (
+					<Logout {...props} setDisplayMessage={setDisplayMessage} />
+				)}
+			/>
 			<Switch>
 				<Route
 					path='/signup'
