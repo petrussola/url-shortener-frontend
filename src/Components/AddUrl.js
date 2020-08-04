@@ -7,21 +7,6 @@ import React, { useState, useRef } from 'react';
 import axios from 'axios';
 require('dotenv').config();
 
-// axios.interceptors.request.use(
-// 	(config) => {
-// 		const { origin } = new URL(config.url);
-// 		const allowedOrigins = [baseApi];
-// 		const token = localStorage.getItem('token');
-// 		if (allowedOrigins.includes(origin)) {
-// 			config.headers.authorization = token;
-// 		}
-// 		return config;
-// 	},
-// 	(error) => {
-// 		return Promise.reject(error);
-// 	}
-// );
-
 const AddUrl = ({ location, match, history, shortUrl, setShortUrl }) => {
 	const [urlInput, setUrlInput] = useState('');
 	const [protocolInput, setProtocolInput] = useState('https://');
@@ -47,7 +32,7 @@ const AddUrl = ({ location, match, history, shortUrl, setShortUrl }) => {
 		const newUrl = `${protocolInput}${urlInput}`;
 		// api call
 		axios
-			.post(`${baseApi}/create-url`, { newUrl })
+			.post(`/create-url`, { newUrl })
 			.then((res) => {
 				// clean loading state
 				setIsLoading(false);

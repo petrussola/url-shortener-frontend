@@ -6,6 +6,7 @@ import FetchUrl from './Components/FetchUrl';
 import AddUrl from './Components/AddUrl';
 import SignUp from './Components/Auth/SignUp';
 import Login from './Components/Auth/Login';
+import Logout from './Components/Auth/Logout';
 
 function App() {
 	const [redirect, setRedirect] = useState(false);
@@ -14,10 +15,11 @@ function App() {
 	const [shortUrl, setShortUrl] = useState(null);
 
 	// auth related state
-	const [displayMessage, setDisplayMessage] = useState(''); // above form feedback message to user when signing up or logging in
+	const [displayMessage, setDisplayMessage] = useState('');
 
 	return (
 		<div className='App'>
+			<Route path='/' component={Logout} />
 			<Switch>
 				<Route
 					path='/signup'
