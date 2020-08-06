@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 // components
 import FeedbackMessage from './FeedbackMessage';
@@ -9,7 +10,12 @@ const initialUser = {
 	password: '',
 };
 
-const Login = ({ displayMessage, setDisplayMessage, history }) => {
+const Login = ({
+	displayMessage,
+	setDisplayMessage,
+	isLoggedIn,
+	setIsLoggedIn,
+}) => {
 	const [logInUser, setLogInUser] = useState(initialUser);
 
 	// when user types in credentials
@@ -26,11 +32,12 @@ const Login = ({ displayMessage, setDisplayMessage, history }) => {
 			.then((res) => {
 				// set message to success
 				setDisplayMessage(res.data.message);
-				// save token to local storage
-				const token = res.data.data.token;
-				localStorage.setItem('token', token);
+				// // save token to local storage
+				// const token = res.data.data.token;
+				// localStorage.setItem('token', token);
 				// redirect to home page
-				history.push('/');
+				// history.push('/');
+				setIsLoggedIn(true);
 				setDisplayMessage('');
 			})
 			.catch((error) => {
@@ -38,6 +45,9 @@ const Login = ({ displayMessage, setDisplayMessage, history }) => {
 				setDisplayMessage(error.response.data.message);
 			});
 	};
+	if (isLoggedIn) {
+		return <Redirect to='/' />;
+	}
 	return (
 		<div>
 			{displayMessage ? (

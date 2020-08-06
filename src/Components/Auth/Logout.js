@@ -1,12 +1,12 @@
 import React from 'react';
 import axios from 'axios';
 
-const Logout = ({ history, setDisplayMessage }) => {
+const Logout = ({ history, setDisplayMessage, setIsLoggedIn }) => {
 	const logOutHandler = () => {
-		console.log(document.cookie);
 		axios
 			.get('/auth/logout')
 			.then((res) => {
+				setIsLoggedIn(false);
 				history.push('/login');
 			})
 			.catch((error) => {

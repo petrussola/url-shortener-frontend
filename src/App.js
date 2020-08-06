@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import Cookie from 'js-cookie';
 
 import FetchUrl from './Components/FetchUrl';
 import AddUrl from './Components/AddUrl';
@@ -13,6 +14,7 @@ function App() {
 	const [error, setError] = useState(false);
 	const [newUrl, setNewUrl] = useState(null);
 	const [shortUrl, setShortUrl] = useState(null);
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 	// auth related state
 	const [displayMessage, setDisplayMessage] = useState('');
@@ -22,7 +24,7 @@ function App() {
 			<Route
 				path='/'
 				render={(props) => (
-					<Logout {...props} setDisplayMessage={setDisplayMessage} />
+					<Logout {...props} setDisplayMessage={setDisplayMessage} setIsLoggedIn={setIsLoggedIn}/>
 				)}
 			/>
 			<Switch>
@@ -43,6 +45,8 @@ function App() {
 							{...props}
 							displayMessage={displayMessage}
 							setDisplayMessage={setDisplayMessage}
+							isLoggedIn={isLoggedIn}
+							setIsLoggedIn={setIsLoggedIn}
 						/>
 					)}
 				/>
@@ -60,7 +64,7 @@ function App() {
 						/>
 					)}
 				/>
-				<Route
+				<PrivateRoute
 					exact
 					path='/'
 					render={(props) => (
@@ -71,5 +75,23 @@ function App() {
 		</div>
 	);
 }
+
+const PrivateRoute = ({ render: Component, ...rest }) => (
+	<Route
+		{...rest}
+		render={(props) =>
+			Cookie.get('isLoggedIn') === 'true' ? (
+				<Component {...props} />
+			) : (
+				<Redirect
+					to={{
+						pathname: '/login',
+						state: { from: props.location },
+					}}
+				/>
+			)
+		}
+	/>
+);
 
 export default App;
