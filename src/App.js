@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Cookie from 'js-cookie';
+import axios from 'axios';
 
 import FetchUrl from './Components/FetchUrl';
 import AddUrl from './Components/AddUrl';
@@ -19,12 +20,25 @@ function App() {
 	// auth related state
 	const [displayMessage, setDisplayMessage] = useState('');
 
+	useEffect(() => {
+		const getCsrfToken = async () => {
+			const { data } = await axios.get('/auth/csrf-token');
+			debugger;
+			axios.defaults.headers.post['X-CSRF-Token'] = data.csrfToken;
+		};
+		getCsrfToken();
+	}, []);
+
 	return (
 		<div className='App'>
 			<Route
 				path='/'
 				render={(props) => (
-					<Logout {...props} setDisplayMessage={setDisplayMessage} setIsLoggedIn={setIsLoggedIn}/>
+					<Logout
+						{...props}
+						setDisplayMessage={setDisplayMessage}
+						setIsLoggedIn={setIsLoggedIn}
+					/>
 				)}
 			/>
 			<Switch>
