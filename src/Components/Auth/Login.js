@@ -15,6 +15,7 @@ const Login = ({
 	setDisplayMessage,
 	isLoggedIn,
 	setIsLoggedIn,
+	history,
 }) => {
 	const [logInUser, setLogInUser] = useState(initialUser);
 
@@ -32,15 +33,11 @@ const Login = ({
 			.then((res) => {
 				// set message to success
 				setDisplayMessage(res.data.message);
-				// // save token to local storage
-				// const token = res.data.data.token;
-				// localStorage.setItem('token', token);
-				// redirect to home page
-				// history.push('/');
 				setIsLoggedIn(true);
 				setDisplayMessage('');
 			})
 			.catch((error) => {
+				debugger;
 				// set message to failure
 				setDisplayMessage(error.response.data.message);
 			});

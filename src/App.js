@@ -23,7 +23,6 @@ function App() {
 	useEffect(() => {
 		const getCsrfToken = async () => {
 			const { data } = await axios.get('/auth/csrf-token');
-			debugger;
 			axios.defaults.headers.post['X-CSRF-Token'] = data.csrfToken;
 		};
 		getCsrfToken();
