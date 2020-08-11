@@ -1,10 +1,11 @@
 // components
 import ReturnedShortUrl from './ReturnedShortUrl';
+
 // helpers
-import baseApi from '../Config/config';
+import axiosInstance from '../Config/axios';
+
 // dependencies
 import React, { useState, useRef } from 'react';
-import axios from 'axios';
 require('dotenv').config();
 
 const AddUrl = ({ location, match, history, shortUrl, setShortUrl }) => {
@@ -31,8 +32,8 @@ const AddUrl = ({ location, match, history, shortUrl, setShortUrl }) => {
 		// add https or http
 		const newUrl = `${protocolInput}${urlInput}`;
 		// api call
-		axios
-			.post(`${baseApi}/create-url`, { newUrl })
+		axiosInstance
+			.post(`/create-url`, { newUrl })
 			.then((res) => {
 				// clean loading state
 				setIsLoading(false);
