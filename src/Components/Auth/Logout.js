@@ -1,9 +1,11 @@
 import React from 'react';
-import axios from 'axios';
+
+// helpers
+import axiosInstance from '../../Config/axios';
 
 const Logout = ({ history, setDisplayMessage, setIsLoggedIn }) => {
 	const logOutHandler = () => {
-		axios
+		axiosInstance
 			.get('/auth/logout')
 			.then((res) => {
 				setIsLoggedIn(false);

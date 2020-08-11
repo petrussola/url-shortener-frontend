@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
+// helpers
 import baseApi from '../../Config/config';
+import axiosInstance from '../../Config/axios';
 
 // components
 import FeedbackMessage from './FeedbackMessage';
@@ -31,7 +32,7 @@ const SignUp = ({ displayMessage, setDisplayMessage }) => {
 			setDisplayMessage("Passwords don't match");
 		} else {
 			//otherwise
-			axios
+			axiosInstance
 				.post(`${baseApi}/auth/signup`, {
 					email: formValue.email,
 					password: formValue.password,

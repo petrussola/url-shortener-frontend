@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
+
+// helpers
 import baseApi from '../Config/config';
+import axiosInstance from '../Config/axios';
 
 const FetchUrl = ({
 	match,
@@ -15,7 +17,7 @@ const FetchUrl = ({
 	const { shortUrl } = match.params;
 	// fetch real URL from the server by passing the url param
 	useEffect(() => {
-		axios
+		axiosInstance
 			.get(`${baseApi}/${shortUrl}`)
 			.then((res) => {
 				// if server returns data, we set state

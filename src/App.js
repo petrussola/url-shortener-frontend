@@ -4,11 +4,17 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import Cookie from 'js-cookie';
 import axios from 'axios';
 
+// components
+
 import FetchUrl from './Components/FetchUrl';
 import AddUrl from './Components/AddUrl';
 import SignUp from './Components/Auth/SignUp';
 import Login from './Components/Auth/Login';
 import Logout from './Components/Auth/Logout';
+
+// helpers
+import baseApi from './Config/config';
+import axiosInstance from './Config/axios';
 
 function App() {
 	const [redirect, setRedirect] = useState(false);
@@ -22,7 +28,7 @@ function App() {
 
 	useEffect(() => {
 		const getCsrfToken = async () => {
-			const { data } = await axios.get('/auth/csrf-token');
+			const { data } = await axiosInstance.get(`${baseApi}/auth/csrf-token`);
 			axios.defaults.headers.post['X-CSRF-Token'] = data.csrfToken;
 		};
 		getCsrfToken();

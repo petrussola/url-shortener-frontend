@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+
+// helpers
+import baseApi from '../../Config/config';
+import axiosInstance from '../../Config/axios';
 
 // components
 import FeedbackMessage from './FeedbackMessage';
@@ -28,8 +31,8 @@ const Login = ({
 	const logInHandler = (e) => {
 		e.preventDefault();
 		setDisplayMessage('');
-		axios
-			.post(`/auth/login`, logInUser)
+		axiosInstance
+			.post(`${baseApi}/auth/login`, logInUser, { withCredentials: true })
 			.then((res) => {
 				// set message to success
 				setDisplayMessage(res.data.message);
