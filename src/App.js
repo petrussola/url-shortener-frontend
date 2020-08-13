@@ -36,6 +36,7 @@ function App() {
 
 	return (
 		<div className='App'>
+			<div>{`${process.env.REACT_APP_BASE_API} << env variable`}</div>
 			<Route
 				path='/'
 				render={(props) => (
