@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Cookie from 'js-cookie';
-import axios from 'axios';
 
 // components
 
@@ -29,7 +28,8 @@ function App() {
 	useEffect(() => {
 		const getCsrfToken = async () => {
 			const { data } = await axiosInstance.get(`${baseApi}/auth/csrf-token`);
-			axios.defaults.headers.post['X-CSRF-Token'] = data.csrfToken;
+			debugger;
+			axiosInstance.defaults.headers.post['x-csrf-token'] = data.csrfToken;
 		};
 		getCsrfToken();
 	}, []);
