@@ -28,7 +28,6 @@ function App() {
 	useEffect(() => {
 		const getCsrfToken = async () => {
 			const { data } = await axiosInstance.get(`${baseApi}/auth/csrf-token`);
-			debugger;
 			axiosInstance.defaults.headers.post['x-csrf-token'] = data.csrfToken;
 		};
 		getCsrfToken();
@@ -36,7 +35,6 @@ function App() {
 
 	return (
 		<div className='App'>
-			<div>{`${process.env.REACT_APP_BASE_API} << env variable`}</div>
 			<Route
 				path='/'
 				render={(props) => (
