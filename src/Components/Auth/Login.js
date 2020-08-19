@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
 
 // helpers
 import baseApi from '../../Config/config';
@@ -32,12 +31,13 @@ const Login = ({
 		e.preventDefault();
 		setDisplayMessage('');
 		axiosInstance
-			.post(`${baseApi}/auth/login`, logInUser, { withCredentials: true })
+			.post(`${baseApi}/auth/login`, logInUser)
 			.then((res) => {
 				// set message to success
 				setDisplayMessage(res.data.message);
 				setIsLoggedIn(true);
 				setDisplayMessage('');
+				history.push('/');
 			})
 			.catch((error) => {
 				debugger;
@@ -45,9 +45,9 @@ const Login = ({
 				setDisplayMessage(error.response.data.message);
 			});
 	};
-	if (isLoggedIn) {
-		return <Redirect to='/' />;
-	}
+	// if (isLoggedIn) {
+	// 	return <Redirect to='/' />;
+	// }
 	return (
 		<div>
 			{displayMessage ? (

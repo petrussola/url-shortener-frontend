@@ -2,6 +2,7 @@
 import ReturnedShortUrl from './ReturnedShortUrl';
 
 // helpers
+import baseApi from '../Config/config';
 import axiosInstance from '../Config/axios';
 
 // dependencies
@@ -33,7 +34,7 @@ const AddUrl = ({ location, match, history, shortUrl, setShortUrl }) => {
 		const newUrl = `${protocolInput}${urlInput}`;
 		// api call
 		axiosInstance
-			.post(`/create-url`, { newUrl })
+			.post(`${baseApi}/create-url`, { newUrl })
 			.then((res) => {
 				// clean loading state
 				setIsLoading(false);
