@@ -7,7 +7,9 @@ if (process.env.NODE_ENV === 'development') {
 		withCredentials: true,
 	});
 } else {
-	axiosInstance = axios.create();
+	axiosInstance = axios.create({
+		withCredentials: true,
+	});
 }
 
 export default axiosInstance;
