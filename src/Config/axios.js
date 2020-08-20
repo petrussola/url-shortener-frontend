@@ -1,15 +1,7 @@
 import axios from 'axios';
 
-let axiosInstance = null;
-
-if (process.env.NODE_ENV === 'development') {
-	axiosInstance = axios.create({
-		withCredentials: true,
-	});
-} else {
-	axiosInstance = axios.create({
-		withCredentials: true,
-	});
-}
+let axiosInstance = axios.create({
+	withCredentials: true,
+});
 
 export default axiosInstance;
