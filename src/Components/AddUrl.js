@@ -1,5 +1,6 @@
 // components
 import ReturnedShortUrl from './ReturnedShortUrl';
+import ListUrlsUser from './ListUrlsUser';
 
 // helpers
 import baseApi from '../Config/config';
@@ -9,7 +10,15 @@ import axiosInstance from '../Config/axios';
 import React, { useState, useRef } from 'react';
 require('dotenv').config();
 
-const AddUrl = ({ location, match, history, shortUrl, setShortUrl }) => {
+const AddUrl = ({
+	location,
+	match,
+	history,
+	shortUrl,
+	setShortUrl,
+	setListUrlsUser,
+	listUrlsUser,
+}) => {
 	const [urlInput, setUrlInput] = useState('');
 	const [protocolInput, setProtocolInput] = useState('https://');
 	const [error, setError] = useState(null);
@@ -39,6 +48,7 @@ const AddUrl = ({ location, match, history, shortUrl, setShortUrl }) => {
 				// clean loading state
 				setIsLoading(false);
 				setShortUrl(res.data.url);
+				setListUrlsUser(res.data.urlsUser);
 			})
 			.catch((error) => {
 				// clean loading state
@@ -95,8 +105,8 @@ const AddUrl = ({ location, match, history, shortUrl, setShortUrl }) => {
 				copyToClipboard={copyToClipboard}
 				textAreaRef={textAreaRef}
 			/>
-			{/* <h2 ref={textAreaRef}>{shortUrl ? `${hostname}${shortUrl}` : null}</h2>
-			<button onClick={copyToClipboard}>Copy to clipboard</button> */}
+			{/* display list of urls by the same user */}
+			<ListUrlsUser listUrlsUser={listUrlsUser} />
 		</div>
 	);
 };

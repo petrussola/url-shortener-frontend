@@ -21,6 +21,7 @@ function App() {
 	const [newUrl, setNewUrl] = useState(null);
 	const [shortUrl, setShortUrl] = useState(null);
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [listUrlsUser, setListUrlsUser] = useState([]);
 
 	// auth related state
 	const [displayMessage, setDisplayMessage] = useState('');
@@ -86,7 +87,13 @@ function App() {
 					exact
 					path='/'
 					render={(props) => (
-						<AddUrl {...props} shortUrl={shortUrl} setShortUrl={setShortUrl} />
+						<AddUrl
+							{...props}
+							shortUrl={shortUrl}
+							setShortUrl={setShortUrl}
+							setListUrlsUser={setListUrlsUser}
+							listUrlsUser={listUrlsUser}
+						/>
 					)}
 				/>
 			</Switch>
