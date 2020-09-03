@@ -27,23 +27,21 @@ const Login = ({
 	};
 
 	// when user clicks on login
-	const logInHandler = (e) => {
-		e.preventDefault();
-		setDisplayMessage('');
-		axiosInstance
-			.post(`${baseApi}/auth/login`, logInUser)
-			.then((res) => {
-				// set message to success
-				setDisplayMessage(res.data.message);
-				setIsLoggedIn(true);
-				setDisplayMessage('');
-				history.push('/');
-			})
-			.catch((error) => {
-				debugger;
-				// set message to failure
-				setDisplayMessage(error.response.data.message);
-			});
+	const logInHandler = async (e) => {
+		try {
+			e.preventDefault();
+			setDisplayMessage('');
+			const res = await axiosInstance.post(`${baseApi}/auth/login`, logInUser);
+			// set message to success
+			setDisplayMessage(res.data.message);
+			setIsLoggedIn(true);
+			setDisplayMessage('');
+			history.push('/');
+		} catch (error) {
+			debugger;
+			// set message to failure
+			setDisplayMessage(error.response.data.message);
+		}
 	};
 	// if (isLoggedIn) {
 	// 	return <Redirect to='/' />;
