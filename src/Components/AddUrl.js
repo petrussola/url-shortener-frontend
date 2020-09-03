@@ -48,6 +48,7 @@ const AddUrl = ({
 				// clean loading state
 				setIsLoading(false);
 				setShortUrl(res.data.url);
+				// updates local state with new url linked to a user
 				setListUrlsUser(res.data.urlsUser);
 			})
 			.catch((error) => {

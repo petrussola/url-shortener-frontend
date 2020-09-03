@@ -67,6 +67,7 @@ function App() {
 							setDisplayMessage={setDisplayMessage}
 							isLoggedIn={isLoggedIn}
 							setIsLoggedIn={setIsLoggedIn}
+							setListUrlsUser={setListUrlsUser}
 						/>
 					)}
 				/>
