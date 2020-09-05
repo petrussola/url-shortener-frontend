@@ -10,6 +10,7 @@ import AddUrl from './Components/AddUrl';
 import SignUp from './Components/Auth/SignUp';
 import Login from './Components/Auth/Login';
 import Logout from './Components/Auth/Logout';
+import ListUrlsUser from './Components/ListUrlsUser';
 
 // helpers
 import baseApi from './Config/config';
@@ -66,6 +67,7 @@ function App() {
 							setDisplayMessage={setDisplayMessage}
 							isLoggedIn={isLoggedIn}
 							setIsLoggedIn={setIsLoggedIn}
+							setListUrlsUser={setListUrlsUser}
 						/>
 					)}
 				/>
@@ -83,20 +85,27 @@ function App() {
 						/>
 					)}
 				/>
-				<PrivateRoute
-					exact
-					path='/'
-					render={(props) => (
-						<AddUrl
-							{...props}
-							shortUrl={shortUrl}
-							setShortUrl={setShortUrl}
-							setListUrlsUser={setListUrlsUser}
-							listUrlsUser={listUrlsUser}
-						/>
-					)}
-				/>
 			</Switch>
+			<PrivateRoute
+				exact
+				path='/'
+				render={(props) => (
+					<AddUrl
+						{...props}
+						shortUrl={shortUrl}
+						setShortUrl={setShortUrl}
+						setListUrlsUser={setListUrlsUser}
+						listUrlsUser={listUrlsUser}
+					/>
+				)}
+			/>
+			<PrivateRoute
+				exact
+				path='/'
+				render={(props) => (
+					<ListUrlsUser {...props} listUrlsUser={listUrlsUser} />
+				)}
+			/>
 		</div>
 	);
 }

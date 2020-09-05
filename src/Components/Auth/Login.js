@@ -18,6 +18,7 @@ const Login = ({
 	isLoggedIn,
 	setIsLoggedIn,
 	history,
+	setListUrlsUser,
 }) => {
 	const [logInUser, setLogInUser] = useState(initialUser);
 
@@ -27,23 +28,25 @@ const Login = ({
 	};
 
 	// when user clicks on login
-	const logInHandler = (e) => {
-		e.preventDefault();
-		setDisplayMessage('');
-		axiosInstance
-			.post(`${baseApi}/auth/login`, logInUser)
-			.then((res) => {
-				// set message to success
-				setDisplayMessage(res.data.message);
-				setIsLoggedIn(true);
-				setDisplayMessage('');
-				history.push('/');
-			})
-			.catch((error) => {
-				debugger;
-				// set message to failure
-				setDisplayMessage(error.response.data.message);
-			});
+	const logInHandler = async (e) => {
+		try {
+			e.preventDefault();
+			setDisplayMessage('');
+			const res = await axiosInstance.post(`${baseApi}/auth/login`, logInUser);
+			const { data } = await axiosInstance.get(`${baseApi}/list-urls`);
+			debugger;
+			// set message to success
+			setDisplayMessage(res.data.message);
+			setIsLoggedIn(true);
+			setDisplayMessage('');
+			// sets list of shorten urls in state for display in screen
+			setListUrlsUser(data.data);
+			history.push('/');
+		} catch (error) {
+			debugger;
+			// set message to failure
+			setDisplayMessage(error.response.data.message);
+		}
 	};
 	// if (isLoggedIn) {
 	// 	return <Redirect to='/' />;
