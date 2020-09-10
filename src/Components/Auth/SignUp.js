@@ -117,16 +117,6 @@ const SignUp = ({ displayMessage, setDisplayMessage }) => {
 					/>
 				</section>
 				<section>
-					<label htmlFor='password'>Password</label>
-					<input
-						type='password'
-						id='password'
-						value={formValue.password}
-						placeholder='Password'
-						onChange={onChangeFormInput}
-					/>
-				</section>
-				<section>
 					<label htmlFor='repeatPassword'>Confirm Password</label>
 					<input
 						type='password'
