@@ -4,7 +4,7 @@ import React from 'react';
 import baseApi from '../../Config/config';
 import axiosInstance from '../../Config/axios';
 
-const Logout = ({ history, setDisplayMessage, setIsLoggedIn }) => {
+const Logout = ({ history, setDisplayMessage, setIsLoggedIn, isLoggedIn }) => {
 	const logOutHandler = () => {
 		axiosInstance
 			.get(`${baseApi}/auth/logout`)
@@ -16,6 +16,9 @@ const Logout = ({ history, setDisplayMessage, setIsLoggedIn }) => {
 				setDisplayMessage(error.message);
 			});
 	};
+	if (!isLoggedIn) {
+		return null;
+	}
 	return <button onClick={logOutHandler}>Logout</button>;
 };
 
