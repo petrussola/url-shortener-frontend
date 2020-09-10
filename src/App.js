@@ -44,6 +44,7 @@ function App() {
 						{...props}
 						setDisplayMessage={setDisplayMessage}
 						setIsLoggedIn={setIsLoggedIn}
+						isLoggedIn={isLoggedIn}
 					/>
 				)}
 			/>
