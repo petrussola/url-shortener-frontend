@@ -16,7 +16,7 @@ const initialUser = {
 const StyledDiv = styled.div`
 	border: 1px solid #CCCCCC;
 	width: 50vw;
-	max-height: 50vh;
+	min-height: 30vh;
 	margin: 100px auto;
 	border-radius: 4px;
 	box-shadow: 2px 4px 5px #CCCCCC;
