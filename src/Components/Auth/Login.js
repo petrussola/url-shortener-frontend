@@ -21,11 +21,14 @@ const StyledDiv = styled.div`
 	border-radius: 4px;
 	box-shadow: 2px 4px 5px #CCCCCC;
 	color: #7C7C7C;
+	@media (max-width: 600px) {
+		width: 90%;
+	}
 	form {
 		display: flex;
 		flex-direction: column;
-		width: 80%;
-		margin: 0 auto;
+		padding: 1rem;
+		margin: 0 auto; 
 		section {
 			margin: 0.5rem 0;
 			display: flex;
@@ -39,6 +42,9 @@ const StyledDiv = styled.div`
 				height: 2rem;
 				padding: 0.5rem 1rem;
 				font-size: 1.5rem;
+				@media (max-width: 600px) {
+					height: 3rem;
+				}
 			}
 			button {
 				width: 50%;
