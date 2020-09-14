@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 
 // helpers
 import baseApi from '../../Config/config';
@@ -12,6 +13,47 @@ const initialForm = {
 	password: '',
 	repeatPassword: '',
 };
+
+const StyledDiv = styled.div`
+	border: 1px solid #cccccc;
+	width: 50vw;
+	min-height: 50vh;
+	margin: 100px auto;
+	border-radius: 4px;
+	box-shadow: 2px 4px 5px #cccccc;
+	color: #7c7c7c;
+	form {
+		display: flex;
+		flex-direction: column;
+		width: 80%;
+		margin: 0 auto;
+		section {
+			margin: 0.5rem 0;
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			label {
+				font-size: 90%;
+			}
+			input {
+				width: 100%;
+				height: 2rem;
+				padding: 0.5rem 1rem;
+				font-size: 1.5rem;
+			}
+			button {
+				width: 50%;
+				margin: 0 auto;
+				border: none;
+				height: 3rem;
+				background-color: #187bcd;
+				border-radius: 4px;
+				font-size: 1rem;
+				color: white;
+			}
+		}
+	}
+`;
 
 const SignUp = ({ displayMessage, setDisplayMessage }) => {
 	const [formValue, setFormValue] = useState(initialForm);
@@ -49,38 +91,46 @@ const SignUp = ({ displayMessage, setDisplayMessage }) => {
 	};
 
 	return (
-		<div>
+		<StyledDiv>
 			{displayMessage ? (
 				<FeedbackMessage displayMessage={displayMessage} />
 			) : null}
 			<form onSubmit={onSubmitForm}>
-				<label htmlFor='email'>Email</label>
-				<input
-					type='email'
-					id='email'
-					value={formValue.email}
-					placeholder='Email'
-					onChange={onChangeFormInput}
-				/>
-				<label htmlFor='password'>Password</label>
-				<input
-					type='password'
-					id='password'
-					value={formValue.password}
-					placeholder='Password'
-					onChange={onChangeFormInput}
-				/>
-				<label htmlFor='repeatPassword'>Confirm Password</label>
-				<input
-					type='password'
-					id='repeatPassword'
-					value={formValue.repeatPassword}
-					placeholder='Confirm your password'
-					onChange={onChangeFormInput}
-				/>
-				<button type='submit'>Submit</button>
+				<section>
+					<label htmlFor='email'>Email</label>
+					<input
+						type='email'
+						id='email'
+						value={formValue.email}
+						placeholder='Email'
+						onChange={onChangeFormInput}
+					/>
+				</section>
+				<section>
+					<label htmlFor='password'>Password</label>
+					<input
+						type='password'
+						id='password'
+						value={formValue.password}
+						placeholder='Password'
+						onChange={onChangeFormInput}
+					/>
+				</section>
+				<section>
+					<label htmlFor='repeatPassword'>Confirm Password</label>
+					<input
+						type='password'
+						id='repeatPassword'
+						value={formValue.repeatPassword}
+						placeholder='Confirm your password'
+						onChange={onChangeFormInput}
+					/>
+				</section>
+				<section>
+					<button type='submit'>Submit</button>
+				</section>
 			</form>
-		</div>
+		</StyledDiv>
 	);
 };
 

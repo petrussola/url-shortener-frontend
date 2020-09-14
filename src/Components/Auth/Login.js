@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 
 // helpers
 import baseApi from '../../Config/config';
@@ -11,6 +12,53 @@ const initialUser = {
 	email: '',
 	password: '',
 };
+
+const StyledDiv = styled.div`
+	border: 1px solid #CCCCCC;
+	width: 50vw;
+	min-height: 30vh;
+	margin: 100px auto;
+	border-radius: 4px;
+	box-shadow: 2px 4px 5px #CCCCCC;
+	color: #7C7C7C;
+	@media (max-width: 600px) {
+		width: 90%;
+	}
+	form {
+		display: flex;
+		flex-direction: column;
+		padding: 1rem;
+		margin: 0 auto; 
+		section {
+			margin: 0.5rem 0;
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			label {
+				font-size: 90%;
+			}
+			input {
+				width: 100%;
+				height: 2rem;
+				padding: 0.5rem 1rem;
+				font-size: 1.5rem;
+				@media (max-width: 600px) {
+					height: 3rem;
+				}
+			}
+			button {
+				width: 50%;
+				margin: 0 auto;
+				border: none;
+				height: 3rem;
+				background-color: #187BCD;
+				border-radius: 4px;
+				font-size: 1rem;
+				color: white;
+			}
+		}
+	}
+`;
 
 const Login = ({
 	displayMessage,
@@ -52,30 +100,36 @@ const Login = ({
 	// 	return <Redirect to='/' />;
 	// }
 	return (
-		<div>
+		<StyledDiv>
 			{displayMessage ? (
 				<FeedbackMessage displayMessage={displayMessage} />
 			) : null}
 			<form onSubmit={logInHandler}>
-				<label htmlFor='email'>Email</label>
-				<input
-					type='text'
-					id='email'
-					placeholder='Email'
-					value={logInUser.email}
-					onChange={onChangeHandler}
-				/>
-				<label htmlFor='email'>Password</label>
-				<input
-					type='password'
-					id='password'
-					placeholder='Password'
-					value={logInUser.password}
-					onChange={onChangeHandler}
-				/>
-				<button type='submit'>Login</button>
+				<section>
+					<label htmlFor='email'>Email</label>
+					<input
+						type='text'
+						id='email'
+						placeholder='Email'
+						value={logInUser.email}
+						onChange={onChangeHandler}
+					/>
+				</section>
+				<section>
+					<label htmlFor='email'>Password</label>
+					<input
+						type='password'
+						id='password'
+						placeholder='Password'
+						value={logInUser.password}
+						onChange={onChangeHandler}
+					/>
+				</section>
+				<section>
+					<button type='submit'>Login</button>
+				</section>
 			</form>
-		</div>
+		</StyledDiv>
 	);
 };
 
