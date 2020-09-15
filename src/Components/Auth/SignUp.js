@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 // helpers
 import baseApi from '../../Config/config';
@@ -17,11 +18,14 @@ const initialForm = {
 const StyledDiv = styled.div`
 	border: 1px solid #cccccc;
 	width: 50vw;
-	min-height: 50vh;
+	min-height: 30vh;
 	margin: 100px auto;
 	border-radius: 4px;
 	box-shadow: 2px 4px 5px #cccccc;
 	color: #7c7c7c;
+	@media (max-width: 600px) {
+		width: 90%;
+	}
 	form {
 		display: flex;
 		flex-direction: column;
@@ -40,6 +44,9 @@ const StyledDiv = styled.div`
 				height: 2rem;
 				padding: 0.5rem 1rem;
 				font-size: 1.5rem;
+				@media (max-width: 600px) {
+					height: 3rem;
+				}
 			}
 			button {
 				width: 50%;
@@ -130,6 +137,9 @@ const SignUp = ({ displayMessage, setDisplayMessage }) => {
 					<button type='submit'>Submit</button>
 				</section>
 			</form>
+			<div>
+				Already registered? Log in <Link to='/login'>here</Link>.
+			</div>
 		</StyledDiv>
 	);
 };
