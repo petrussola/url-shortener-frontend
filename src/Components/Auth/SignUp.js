@@ -17,11 +17,14 @@ const initialForm = {
 const StyledDiv = styled.div`
 	border: 1px solid #cccccc;
 	width: 50vw;
-	min-height: 50vh;
+	min-height: 30vh;
 	margin: 100px auto;
 	border-radius: 4px;
 	box-shadow: 2px 4px 5px #cccccc;
 	color: #7c7c7c;
+	@media (max-width: 600px) {
+		width: 90%;
+	}
 	form {
 		display: flex;
 		flex-direction: column;
@@ -39,7 +42,11 @@ const StyledDiv = styled.div`
 				width: 100%;
 				height: 2rem;
 				padding: 0.5rem 1rem;
-				font-size: 1.5rem;
+				font-size: 1rem;
+				@media (max-width: 600px) {
+					height: 3rem;
+				}
+			}
 			}
 			button {
 				width: 50%;

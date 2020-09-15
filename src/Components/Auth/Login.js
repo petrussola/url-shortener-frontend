@@ -41,7 +41,7 @@ const StyledDiv = styled.div`
 				width: 100%;
 				height: 2rem;
 				padding: 0.5rem 1rem;
-				font-size: 1.5rem;
+				font-size: 1rem;
 				@media (max-width: 600px) {
 					height: 3rem;
 				}
