@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 // helpers
 import baseApi from '../../Config/config';
@@ -136,6 +137,9 @@ const SignUp = ({ displayMessage, setDisplayMessage }) => {
 					<button type='submit'>Submit</button>
 				</section>
 			</form>
+			<div>
+				Already registered? Log in <Link to='/login'>here</Link>.
+			</div>
 		</StyledDiv>
 	);
 };
