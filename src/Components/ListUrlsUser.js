@@ -4,7 +4,6 @@ import React from 'react';
 import UrlItem from './UrlItem';
 
 const ListUrlsUser = ({ listUrlsUser }) => {
-	debugger
 	if (listUrlsUser.length === 0) {
 		return null;
 	}
