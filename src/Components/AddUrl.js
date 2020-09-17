@@ -168,7 +168,6 @@ const AddUrl = ({
 				/>
 			</StyledDiv>
 			{/* display list of urls by the same user */}
-			<ListUrlsUser listUrlsUser={listUrlsUser} />
 		</div>
 	);
 };
