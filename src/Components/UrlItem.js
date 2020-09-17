@@ -9,9 +9,12 @@ const StyledDiv = styled.div`
 	max-width: 80vw;
 	margin: 0.2rem auto;
 	h3 {
-		padding: 0.2rem;
-		border: 1px solid #187bcd;
 		padding: 0.5rem;
+		border: 1px solid #187bcd;
+		margin: 0.5rem 0;
+		@media (max-width: 600px) {
+			font-size: 0.75rem;
+		}
 	}
 	h3#shortened {
 		background-color: #187bcd;
