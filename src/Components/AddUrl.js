@@ -77,6 +77,7 @@ const AddUrl = ({
 	setShortUrl,
 	setListUrlsUser,
 	listUrlsUser,
+	loggedUser,
 }) => {
 	const [urlInput, setUrlInput] = useState('');
 	const [protocolInput, setProtocolInput] = useState('https://');
@@ -136,6 +137,10 @@ const AddUrl = ({
 			selection.removeAllRanges();
 		}
 	};
+
+	if (!loggedUser.approved) {
+		return <div>Your request is pending approval</div>;
+	}
 
 	return (
 		<div>

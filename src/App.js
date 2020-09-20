@@ -22,6 +22,7 @@ function App() {
 	const [newUrl, setNewUrl] = useState(null);
 	const [shortUrl, setShortUrl] = useState(null);
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [loggedUser, setLoggedUser] = useState({});
 	const [listUrlsUser, setListUrlsUser] = useState([]);
 
 	// auth related state
@@ -45,6 +46,7 @@ function App() {
 						setDisplayMessage={setDisplayMessage}
 						setIsLoggedIn={setIsLoggedIn}
 						isLoggedIn={isLoggedIn}
+						loggedUser={loggedUser}
 					/>
 				)}
 			/>
@@ -69,6 +71,7 @@ function App() {
 							isLoggedIn={isLoggedIn}
 							setIsLoggedIn={setIsLoggedIn}
 							setListUrlsUser={setListUrlsUser}
+							setLoggedUser={setLoggedUser}
 						/>
 					)}
 				/>
@@ -97,6 +100,7 @@ function App() {
 						setShortUrl={setShortUrl}
 						setListUrlsUser={setListUrlsUser}
 						listUrlsUser={listUrlsUser}
+						loggedUser={loggedUser}
 					/>
 				)}
 			/>
@@ -104,7 +108,11 @@ function App() {
 				exact
 				path='/'
 				render={(props) => (
-					<ListUrlsUser {...props} listUrlsUser={listUrlsUser} />
+					<ListUrlsUser
+						{...props}
+						listUrlsUser={listUrlsUser}
+						loggedUser={loggedUser}
+					/>
 				)}
 			/>
 		</div>

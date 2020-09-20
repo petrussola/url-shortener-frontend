@@ -68,6 +68,7 @@ const Login = ({
 	setIsLoggedIn,
 	history,
 	setListUrlsUser,
+	setLoggedUser,
 }) => {
 	const [logInUser, setLogInUser] = useState(initialUser);
 
@@ -83,10 +84,10 @@ const Login = ({
 			setDisplayMessage('');
 			const res = await axiosInstance.post(`${baseApi}/auth/login`, logInUser);
 			const { data } = await axiosInstance.get(`${baseApi}/list-urls`);
-			debugger;
 			// set message to success
 			setDisplayMessage(res.data.message);
 			setIsLoggedIn(true);
+			setLoggedUser(res.data.data);
 			setDisplayMessage('');
 			// sets list of shorten urls in state for display in screen
 			setListUrlsUser(data.data);
