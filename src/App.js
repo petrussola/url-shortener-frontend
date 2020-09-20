@@ -11,6 +11,7 @@ import SignUp from './Components/Auth/SignUp';
 import Login from './Components/Auth/Login';
 import Logout from './Components/Auth/Logout';
 import ListUrlsUser from './Components/ListUrlsUser';
+import AdminPanel from './Components/Admin/AdminPanel';
 
 // helpers
 import baseApi from './Config/config';
@@ -90,6 +91,11 @@ function App() {
 					)}
 				/>
 			</Switch>
+			<PrivateRoute
+				exact
+				path='/'
+				render={(props) => <AdminPanel {...props} loggedUser={loggedUser} />}
+			/>
 			<PrivateRoute
 				exact
 				path='/'
