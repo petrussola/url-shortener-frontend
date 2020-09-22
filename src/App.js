@@ -25,6 +25,7 @@ function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [loggedUser, setLoggedUser] = useState({});
 	const [listUrlsUser, setListUrlsUser] = useState([]);
+	const [usersToBeApproved, setUsersToBeApproved] = useState([]);
 
 	// auth related state
 	const [displayMessage, setDisplayMessage] = useState('');
@@ -73,6 +74,7 @@ function App() {
 							setIsLoggedIn={setIsLoggedIn}
 							setListUrlsUser={setListUrlsUser}
 							setLoggedUser={setLoggedUser}
+							setUsersToBeApproved={setUsersToBeApproved}
 						/>
 					)}
 				/>
@@ -94,7 +96,13 @@ function App() {
 			<PrivateRoute
 				exact
 				path='/'
-				render={(props) => <AdminPanel {...props} loggedUser={loggedUser} />}
+				render={(props) => (
+					<AdminPanel
+						{...props}
+						loggedUser={loggedUser}
+						usersToBeApproved={usersToBeApproved}
+					/>
+				)}
 			/>
 			<PrivateRoute
 				exact
