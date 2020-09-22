@@ -101,6 +101,7 @@ function App() {
 						{...props}
 						loggedUser={loggedUser}
 						usersToBeApproved={usersToBeApproved}
+						setUsersToBeApproved={setUsersToBeApproved}
 					/>
 				)}
 			/>

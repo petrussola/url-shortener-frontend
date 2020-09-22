@@ -8,14 +8,24 @@ const StyledDiv = styled.div`
 	min-height: 100px;
 `;
 
-const AdminPanel = ({ loggedUser, usersToBeApproved }) => {
+const AdminPanel = ({
+	loggedUser,
+	usersToBeApproved,
+	setUsersToBeApproved,
+}) => {
 	if (!loggedUser.admin || usersToBeApproved.length === 0) {
 		return null;
 	}
 	return (
 		<StyledDiv>
 			{usersToBeApproved.map((user) => {
-				return <UserToBeApproved user={user} key={user.id} />;
+				return (
+					<UserToBeApproved
+						user={user}
+						setUsersToBeApproved={setUsersToBeApproved}
+						key={user.id}
+					/>
+				);
 			})}
 		</StyledDiv>
 	);

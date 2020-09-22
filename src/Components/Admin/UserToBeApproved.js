@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
+// helpers
+import baseApi from '../../Config/config';
+import axiosInstance from '../../Config/axios';
+
 const StyledDiv = styled.div`
 	display: flex;
 	flex-direction: row;
@@ -8,15 +12,21 @@ const StyledDiv = styled.div`
 	align-items: center;
 `;
 
-const UserToBeApproved = ({ user }) => {
-	const approveHandler = () => {
-		console.log('yay');
+const UserToBeApproved = ({ user, setUsersToBeApproved }) => {
+	const approveHandler = async () => {
+		try {
+			const res = await axiosInstance.post(`${baseApi}/auth/approve-user`, {
+				id: user.id,
+			});
+			debugger;
+			setUsersToBeApproved(res.data.tobeapproved);
+		} catch (error) {}
 	};
 
 	return (
 		<StyledDiv>
 			<p>{user.email}</p>
-			<button onClick={approveHandler}>Approve</button>
+			<button onClick={() => approveHandler(user)}>Approve</button>
 		</StyledDiv>
 	);
 };
