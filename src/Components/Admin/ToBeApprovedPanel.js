@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import UserToBeApproved from './UserToBeApproved';
 
@@ -17,17 +18,20 @@ const ToBeApprovedPanel = ({
 		return null;
 	}
 	return (
-		<StyledDiv>
-			{usersToBeApproved.map((user) => {
-				return (
-					<UserToBeApproved
-						user={user}
-						setUsersToBeApproved={setUsersToBeApproved}
-						key={user.id}
-					/>
-				);
-			})}
-		</StyledDiv>
+		<section>
+			<StyledDiv>
+				{usersToBeApproved.map((user) => {
+					return (
+						<UserToBeApproved
+							user={user}
+							setUsersToBeApproved={setUsersToBeApproved}
+							key={user.id}
+						/>
+					);
+				})}
+			</StyledDiv>
+			<Link to='/admin'>Back</Link>
+		</section>
 	);
 };
 

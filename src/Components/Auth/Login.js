@@ -70,6 +70,7 @@ const Login = ({
 	setListUrlsUser,
 	setLoggedUser,
 	setUsersToBeApproved,
+	setAllUsers,
 }) => {
 	const [logInUser, setLogInUser] = useState(initialUser);
 
@@ -93,6 +94,7 @@ const Login = ({
 			// sets list of shorten urls in state for display in screen
 			setListUrlsUser(data.data);
 			setUsersToBeApproved(res.data.tobeapproved);
+			setAllUsers(res.data.allusers);
 			history.push('/');
 		} catch (error) {
 			debugger;

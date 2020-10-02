@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Logout from './Auth/Logout';
 
 const Navbar = ({
@@ -18,7 +19,7 @@ const Navbar = ({
 				isLoggedIn={isLoggedIn}
 				loggedUser={loggedUser}
 			/>
-			<p>hello</p>
+			<Link to='/admin'>Admin Panel</Link>
 		</div>
 	);
 };

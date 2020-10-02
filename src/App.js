@@ -12,6 +12,8 @@ import Login from './Components/Auth/Login';
 import ListUrlsUser from './Components/ListUrlsUser';
 import ToBeApprovedPanel from './Components/Admin/ToBeApprovedPanel';
 import Navbar from './Components/Navbar';
+import AdminPanel from './Components/Admin/AdminPanel';
+import ActivePanel from './Components/Admin/ActivePanel';
 
 // helpers
 import baseApi from './Config/config';
@@ -26,6 +28,7 @@ function App() {
 	const [loggedUser, setLoggedUser] = useState({});
 	const [listUrlsUser, setListUrlsUser] = useState([]);
 	const [usersToBeApproved, setUsersToBeApproved] = useState([]);
+	const [allUsers, setAllUsers] = useState([]);
 
 	// auth related state
 	const [displayMessage, setDisplayMessage] = useState('');
@@ -75,6 +78,7 @@ function App() {
 							setListUrlsUser={setListUrlsUser}
 							setLoggedUser={setLoggedUser}
 							setUsersToBeApproved={setUsersToBeApproved}
+							setAllUsers={setAllUsers}
 						/>
 					)}
 				/>
@@ -95,7 +99,14 @@ function App() {
 			</Switch>
 			<PrivateRoute
 				exact
-				path='/'
+				path='/admin'
+				render={(props) => (
+					<AdminPanel {...props} usersToBeApproved={usersToBeApproved} />
+				)}
+			/>
+			<PrivateRoute
+				exact
+				path='/admin/approval'
 				render={(props) => (
 					<ToBeApprovedPanel
 						{...props}
@@ -103,6 +114,13 @@ function App() {
 						usersToBeApproved={usersToBeApproved}
 						setUsersToBeApproved={setUsersToBeApproved}
 					/>
+				)}
+			/>
+			<PrivateRoute
+				exact
+				path='/admin/active'
+				render={(props) => (
+					<ActivePanel {...props} loggedUser={loggedUser} allUsers={allUsers} />
 				)}
 			/>
 			<PrivateRoute
