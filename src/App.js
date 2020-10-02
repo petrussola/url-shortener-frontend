@@ -12,10 +12,12 @@ import Login from './Components/Auth/Login';
 import Logout from './Components/Auth/Logout';
 import ListUrlsUser from './Components/ListUrlsUser';
 import AdminPanel from './Components/Admin/AdminPanel';
+import NavBar from './Components/Navbar';
 
 // helpers
 import baseApi from './Config/config';
 import axiosInstance from './Config/axios';
+import Navbar from './Components/Navbar';
 
 function App() {
 	const [redirect, setRedirect] = useState(false);
@@ -43,7 +45,7 @@ function App() {
 			<Route
 				path='/'
 				render={(props) => (
-					<Logout
+					<Navbar
 						{...props}
 						setDisplayMessage={setDisplayMessage}
 						setIsLoggedIn={setIsLoggedIn}
