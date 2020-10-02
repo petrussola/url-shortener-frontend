@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
+// helpers
+import baseApi from '../../Config/config';
+import axiosInstance from '../../Config/axios';
+
 const StyledDiv = styled.div`
 	display: flex;
 	flex-flow: row wrap;
@@ -14,7 +18,18 @@ const StyledDiv = styled.div`
 	}
 `;
 
-const UserActive = ({ user }) => {
+const UserActive = ({ user, setUsersToBeApproved }) => {
+	const disapproveUser = async (id) => {
+		try {
+			const res = await axiosInstance.post(`${baseApi}/auth/unapprove-user`, {
+				id,
+			});
+			setUsersToBeApproved(res.data.tobeapproved);
+		} catch (error) {
+			console.log(error.message);
+			debugger;
+		}
+	};
 	return (
 		<StyledDiv>
 			<div>
@@ -32,6 +47,7 @@ const UserActive = ({ user }) => {
 				<span>Approved for use? </span>
 				{user.approved ? 'true' : 'false'}
 			</div>
+			<button onClick={() => disapproveUser(user.id)}>Disapprove</button>
 		</StyledDiv>
 	);
 };
