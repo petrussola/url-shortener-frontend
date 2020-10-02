@@ -8,7 +8,7 @@ const StyledDiv = styled.div`
 	min-height: 100px;
 `;
 
-const AdminPanel = ({
+const ToBeApprovedPanel = ({
 	loggedUser,
 	usersToBeApproved,
 	setUsersToBeApproved,
@@ -31,4 +31,4 @@ const AdminPanel = ({
 	);
 };
 
-export default AdminPanel;
+export default ToBeApprovedPanel;

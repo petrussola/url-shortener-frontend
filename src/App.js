@@ -9,15 +9,13 @@ import FetchUrl from './Components/FetchUrl';
 import AddUrl from './Components/AddUrl';
 import SignUp from './Components/Auth/SignUp';
 import Login from './Components/Auth/Login';
-import Logout from './Components/Auth/Logout';
 import ListUrlsUser from './Components/ListUrlsUser';
-import AdminPanel from './Components/Admin/AdminPanel';
-import NavBar from './Components/Navbar';
+import ToBeApprovedPanel from './Components/Admin/ToBeApprovedPanel';
+import Navbar from './Components/Navbar';
 
 // helpers
 import baseApi from './Config/config';
 import axiosInstance from './Config/axios';
-import Navbar from './Components/Navbar';
 
 function App() {
 	const [redirect, setRedirect] = useState(false);
@@ -99,7 +97,7 @@ function App() {
 				exact
 				path='/'
 				render={(props) => (
-					<AdminPanel
+					<ToBeApprovedPanel
 						{...props}
 						loggedUser={loggedUser}
 						usersToBeApproved={usersToBeApproved}
