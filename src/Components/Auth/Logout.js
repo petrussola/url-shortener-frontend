@@ -34,9 +34,6 @@ const Logout = ({
 				setDisplayMessage(error.message);
 			});
 	};
-	if (!loggedUser.approved || !isLoggedIn) {
-		return null;
-	}
 	return <StyledButton onClick={logOutHandler}>Logout</StyledButton>;
 };
 

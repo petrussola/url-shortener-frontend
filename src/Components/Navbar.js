@@ -7,6 +7,9 @@ const Navbar = ({
 	isLoggedIn,
 	loggedUser,
 }) => {
+	if (!loggedUser.approved || !isLoggedIn) {
+		return null;
+	}
 	return (
 		<div>
 			<Logout
