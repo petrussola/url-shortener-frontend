@@ -1,8 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 import UserToBeApproved from './UserToBeApproved';
+import BackButton from './Navigation/BackButton';
+
+const StyledSection = styled.section`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly;
+`;
 
 const StyledDiv = styled.div`
 	border: 1px solid red;
@@ -13,25 +20,28 @@ const ToBeApprovedPanel = ({
 	loggedUser,
 	usersToBeApproved,
 	setUsersToBeApproved,
+	match,
 }) => {
-	if (!loggedUser.admin || usersToBeApproved.length === 0) {
-		return null;
-	}
 	return (
-		<section>
-			<StyledDiv>
-				{usersToBeApproved.map((user) => {
-					return (
-						<UserToBeApproved
-							user={user}
-							setUsersToBeApproved={setUsersToBeApproved}
-							key={user.id}
-						/>
-					);
-				})}
-			</StyledDiv>
-			<Link to='/admin'>Back</Link>
-		</section>
+		<StyledSection>
+			{!loggedUser.admin || usersToBeApproved.length === 0 ? (
+				'Nothing to approve'
+			) : (
+				<StyledDiv>
+					{usersToBeApproved.map((user) => {
+						return (
+							<UserToBeApproved
+								user={user}
+								setUsersToBeApproved={setUsersToBeApproved}
+								key={user.id}
+							/>
+						);
+					})}
+				</StyledDiv>
+			)}
+
+			<BackButton match={match} />
+		</StyledSection>
 	);
 };
 

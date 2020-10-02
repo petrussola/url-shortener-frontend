@@ -15,7 +15,6 @@ const StyledDiv = styled.div`
 `;
 
 const UserActive = ({ user }) => {
-	debugger;
 	return (
 		<StyledDiv>
 			<div>

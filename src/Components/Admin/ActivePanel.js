@@ -1,8 +1,8 @@
 import React from 'react';
 import UserActive from './UserActive';
-import { Link } from 'react-router-dom';
+import BackButton from './Navigation/BackButton';
 
-const ActivePanel = ({ allUsers }) => {
+const ActivePanel = ({ allUsers, match }) => {
 	if (!allUsers || allUsers.length === 0) {
 		return null;
 	}
@@ -11,7 +11,7 @@ const ActivePanel = ({ allUsers }) => {
 			{allUsers.map((user) => {
 				return <UserActive key={user.id} user={user} />;
 			})}
-			<Link to='/admin'>Back</Link>
+			<BackButton match={match} />
 		</div>
 	);
 };
