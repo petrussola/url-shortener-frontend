@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Logout from './Auth/Logout';
 
 const Navbar = ({
+	history,
 	setDisplayMessage,
 	setIsLoggedIn,
 	isLoggedIn,
@@ -11,7 +12,6 @@ const Navbar = ({
 	if (!loggedUser.approved || !isLoggedIn) {
 		return null;
 	}
-	debugger;
 	return (
 		<div>
 			<Logout
@@ -19,6 +19,7 @@ const Navbar = ({
 				setIsLoggedIn={setIsLoggedIn}
 				isLoggedIn={isLoggedIn}
 				loggedUser={loggedUser}
+				history={history}
 			/>
 			{!loggedUser.admin ? null : <Link to='/admin'>Admin Panel</Link>}
 		</div>
