@@ -1,5 +1,6 @@
 // components
 import ReturnedShortUrl from './ReturnedShortUrl';
+import BackButton from './Admin/Navigation/BackButton';
 
 // helpers
 import baseApi from '../Config/config';
@@ -8,6 +9,7 @@ import axiosInstance from '../Config/axios';
 // dependencies
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
+import { Redirect } from 'react-router-dom';
 require('dotenv').config();
 
 const StyledDiv = styled.div`
@@ -69,14 +71,11 @@ const StyledDiv = styled.div`
 `;
 
 const AddUrl = ({
-	location,
-	match,
-	history,
 	shortUrl,
 	setShortUrl,
 	setListUrlsUser,
-	listUrlsUser,
 	loggedUser,
+	match,
 }) => {
 	const [urlInput, setUrlInput] = useState('');
 	const [protocolInput, setProtocolInput] = useState('https://');
@@ -137,8 +136,17 @@ const AddUrl = ({
 		}
 	};
 
-	if (!loggedUser.approved) {
-		return <div>Your request is pending approval</div>;
+	if (Object.keys(loggedUser).length === 0) {
+		return <Redirect to='/login' />;
+	}
+
+	if (Object.keys(loggedUser).length !== 0 && !loggedUser.approved) {
+		return (
+			<section>
+				<div>Your request is pending approval</div>
+				<BackButton match={match} destination='login' />
+			</section>
+		);
 	}
 
 	return (
