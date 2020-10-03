@@ -1,5 +1,6 @@
 // components
 import ReturnedShortUrl from './ReturnedShortUrl';
+import BackButton from './Admin/Navigation/BackButton';
 
 // helpers
 import baseApi from '../Config/config';
@@ -69,7 +70,13 @@ const StyledDiv = styled.div`
 	}
 `;
 
-const AddUrl = ({ shortUrl, setShortUrl, setListUrlsUser, loggedUser }) => {
+const AddUrl = ({
+	shortUrl,
+	setShortUrl,
+	setListUrlsUser,
+	loggedUser,
+	match,
+}) => {
 	const [urlInput, setUrlInput] = useState('');
 	const [protocolInput, setProtocolInput] = useState('https://');
 	const [error, setError] = useState(null);
@@ -134,7 +141,12 @@ const AddUrl = ({ shortUrl, setShortUrl, setListUrlsUser, loggedUser }) => {
 	}
 
 	if (Object.keys(loggedUser).length !== 0 && !loggedUser.approved) {
-		return <div>Your request is pending approval</div>;
+		return (
+			<section>
+				<div>Your request is pending approval</div>
+				<BackButton match={match} destination='login' />
+			</section>
+		);
 	}
 
 	return (
