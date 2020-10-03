@@ -13,8 +13,8 @@ const StyledDiv = styled.div`
 	margin: 0 auto;
 `;
 
-const ListUrlsUser = ({ listUrlsUser }) => {
-	if (listUrlsUser.length === 0) {
+const ListUrlsUser = ({ listUrlsUser, loggedUser }) => {
+	if (!loggedUser.approved || listUrlsUser.length === 0) {
 		return null;
 	}
 	return (

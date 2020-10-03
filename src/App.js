@@ -9,8 +9,11 @@ import FetchUrl from './Components/FetchUrl';
 import AddUrl from './Components/AddUrl';
 import SignUp from './Components/Auth/SignUp';
 import Login from './Components/Auth/Login';
-import Logout from './Components/Auth/Logout';
 import ListUrlsUser from './Components/ListUrlsUser';
+import ToBeApprovedPanel from './Components/Admin/ToBeApprovedPanel';
+import Navbar from './Components/Navbar';
+import AdminPanel from './Components/Admin/AdminPanel';
+import ActivePanel from './Components/Admin/ActivePanel';
 
 // helpers
 import baseApi from './Config/config';
@@ -22,7 +25,10 @@ function App() {
 	const [newUrl, setNewUrl] = useState(null);
 	const [shortUrl, setShortUrl] = useState(null);
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [loggedUser, setLoggedUser] = useState({});
 	const [listUrlsUser, setListUrlsUser] = useState([]);
+	const [usersToBeApproved, setUsersToBeApproved] = useState([]);
+	const [allUsers, setAllUsers] = useState([]);
 
 	// auth related state
 	const [displayMessage, setDisplayMessage] = useState('');
@@ -40,11 +46,12 @@ function App() {
 			<Route
 				path='/'
 				render={(props) => (
-					<Logout
+					<Navbar
 						{...props}
 						setDisplayMessage={setDisplayMessage}
 						setIsLoggedIn={setIsLoggedIn}
 						isLoggedIn={isLoggedIn}
+						loggedUser={loggedUser}
 					/>
 				)}
 			/>
@@ -69,6 +76,9 @@ function App() {
 							isLoggedIn={isLoggedIn}
 							setIsLoggedIn={setIsLoggedIn}
 							setListUrlsUser={setListUrlsUser}
+							setLoggedUser={setLoggedUser}
+							setUsersToBeApproved={setUsersToBeApproved}
+							setAllUsers={setAllUsers}
 						/>
 					)}
 				/>
@@ -89,6 +99,39 @@ function App() {
 			</Switch>
 			<PrivateRoute
 				exact
+				path='/admin'
+				render={(props) => (
+					<AdminPanel {...props} usersToBeApproved={usersToBeApproved} />
+				)}
+			/>
+			<PrivateRoute
+				exact
+				path='/admin/approval'
+				render={(props) => (
+					<ToBeApprovedPanel
+						{...props}
+						loggedUser={loggedUser}
+						usersToBeApproved={usersToBeApproved}
+						setUsersToBeApproved={setUsersToBeApproved}
+						setAllUsers={setAllUsers}
+					/>
+				)}
+			/>
+			<PrivateRoute
+				exact
+				path='/admin/active'
+				render={(props) => (
+					<ActivePanel
+						{...props}
+						loggedUser={loggedUser}
+						allUsers={allUsers}
+						setUsersToBeApproved={setUsersToBeApproved}
+						setAllUsers={setAllUsers}
+					/>
+				)}
+			/>
+			<PrivateRoute
+				exact
 				path='/'
 				render={(props) => (
 					<AddUrl
@@ -97,6 +140,7 @@ function App() {
 						setShortUrl={setShortUrl}
 						setListUrlsUser={setListUrlsUser}
 						listUrlsUser={listUrlsUser}
+						loggedUser={loggedUser}
 					/>
 				)}
 			/>
@@ -104,7 +148,11 @@ function App() {
 				exact
 				path='/'
 				render={(props) => (
-					<ListUrlsUser {...props} listUrlsUser={listUrlsUser} />
+					<ListUrlsUser
+						{...props}
+						listUrlsUser={listUrlsUser}
+						loggedUser={loggedUser}
+					/>
 				)}
 			/>
 		</div>

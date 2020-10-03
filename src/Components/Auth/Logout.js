@@ -16,7 +16,13 @@ const StyledButton = styled.button`
 	}
 `;
 
-const Logout = ({ history, setDisplayMessage, setIsLoggedIn, isLoggedIn }) => {
+const Logout = ({
+	history,
+	setDisplayMessage,
+	setIsLoggedIn,
+	isLoggedIn,
+	loggedUser,
+}) => {
 	const logOutHandler = () => {
 		axiosInstance
 			.get(`${baseApi}/auth/logout`)
@@ -28,9 +34,6 @@ const Logout = ({ history, setDisplayMessage, setIsLoggedIn, isLoggedIn }) => {
 				setDisplayMessage(error.message);
 			});
 	};
-	if (!isLoggedIn) {
-		return null;
-	}
 	return <StyledButton onClick={logOutHandler}>Logout</StyledButton>;
 };
 
