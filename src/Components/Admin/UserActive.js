@@ -18,13 +18,14 @@ const StyledDiv = styled.div`
 	}
 `;
 
-const UserActive = ({ user, setUsersToBeApproved }) => {
+const UserActive = ({ user, setUsersToBeApproved, setAllUsers }) => {
 	const disapproveUser = async (id) => {
 		try {
 			const res = await axiosInstance.post(`${baseApi}/auth/unapprove-user`, {
 				id,
 			});
 			setUsersToBeApproved(res.data.tobeapproved);
+			setAllUsers(res.data.allUsers);
 		} catch (error) {
 			console.log(error.message);
 			debugger;

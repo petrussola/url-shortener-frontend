@@ -12,7 +12,7 @@ const StyledDiv = styled.div`
 	align-items: center;
 `;
 
-const UserToBeApproved = ({ user, setUsersToBeApproved }) => {
+const UserToBeApproved = ({ user, setUsersToBeApproved, setAllUsers }) => {
 	const approveHandler = async () => {
 		try {
 			const res = await axiosInstance.post(`${baseApi}/auth/approve-user`, {
@@ -20,6 +20,7 @@ const UserToBeApproved = ({ user, setUsersToBeApproved }) => {
 			});
 			debugger;
 			setUsersToBeApproved(res.data.tobeapproved);
+			setAllUsers(res.data.allUsers);
 		} catch (error) {}
 	};
 

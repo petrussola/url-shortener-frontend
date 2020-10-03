@@ -113,6 +113,7 @@ function App() {
 						loggedUser={loggedUser}
 						usersToBeApproved={usersToBeApproved}
 						setUsersToBeApproved={setUsersToBeApproved}
+						setAllUsers={setAllUsers}
 					/>
 				)}
 			/>
@@ -120,7 +121,13 @@ function App() {
 				exact
 				path='/admin/active'
 				render={(props) => (
-					<ActivePanel {...props} loggedUser={loggedUser} allUsers={allUsers} setUsersToBeApproved={setUsersToBeApproved} />
+					<ActivePanel
+						{...props}
+						loggedUser={loggedUser}
+						allUsers={allUsers}
+						setUsersToBeApproved={setUsersToBeApproved}
+						setAllUsers={setAllUsers}
+					/>
 				)}
 			/>
 			<PrivateRoute

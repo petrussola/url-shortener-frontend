@@ -2,7 +2,12 @@ import React from 'react';
 import UserActive from './UserActive';
 import BackButton from './Navigation/BackButton';
 
-const ActivePanel = ({ allUsers, setUsersToBeApproved, match }) => {
+const ActivePanel = ({
+	allUsers,
+	setUsersToBeApproved,
+	match,
+	setAllUsers,
+}) => {
 	if (!allUsers || allUsers.length === 0) {
 		return null;
 	}
@@ -14,6 +19,7 @@ const ActivePanel = ({ allUsers, setUsersToBeApproved, match }) => {
 						key={user.id}
 						user={user}
 						setUsersToBeApproved={setUsersToBeApproved}
+						setAllUsers={setAllUsers}
 					/>
 				);
 			})}

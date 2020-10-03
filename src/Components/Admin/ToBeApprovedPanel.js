@@ -21,6 +21,7 @@ const ToBeApprovedPanel = ({
 	usersToBeApproved,
 	setUsersToBeApproved,
 	match,
+	setAllUsers,
 }) => {
 	return (
 		<StyledSection>
@@ -34,6 +35,7 @@ const ToBeApprovedPanel = ({
 								user={user}
 								setUsersToBeApproved={setUsersToBeApproved}
 								key={user.id}
+								setAllUsers={setAllUsers}
 							/>
 						);
 					})}
