@@ -8,6 +8,7 @@ import axiosInstance from '../Config/axios';
 // dependencies
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
+import { Redirect } from 'react-router-dom';
 require('dotenv').config();
 
 const StyledDiv = styled.div`
@@ -128,7 +129,11 @@ const AddUrl = ({ shortUrl, setShortUrl, setListUrlsUser, loggedUser }) => {
 		}
 	};
 
-	if (!loggedUser.approved) {
+	if (Object.keys(loggedUser).length === 0) {
+		return <Redirect to='/login' />;
+	}
+
+	if (Object.keys(loggedUser).length !== 0 && !loggedUser.approved) {
 		return <div>Your request is pending approval</div>;
 	}
 
