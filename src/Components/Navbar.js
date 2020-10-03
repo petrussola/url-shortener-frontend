@@ -11,6 +11,7 @@ const Navbar = ({
 	if (!loggedUser.approved || !isLoggedIn) {
 		return null;
 	}
+	debugger;
 	return (
 		<div>
 			<Logout
@@ -19,7 +20,7 @@ const Navbar = ({
 				isLoggedIn={isLoggedIn}
 				loggedUser={loggedUser}
 			/>
-			<Link to='/admin'>Admin Panel</Link>
+			{!loggedUser.admin ? null : <Link to='/admin'>Admin Panel</Link>}
 		</div>
 	);
 };
