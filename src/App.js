@@ -93,6 +93,7 @@ function App() {
 							setError={setError}
 							newUrl={newUrl}
 							setNewUrl={setNewUrl}
+							isLoggedIn={isLoggedIn}
 						/>
 					)}
 				/>
