@@ -1,6 +1,5 @@
 // components
 import ReturnedShortUrl from './ReturnedShortUrl';
-import ListUrlsUser from './ListUrlsUser';
 
 // helpers
 import baseApi from '../Config/config';
