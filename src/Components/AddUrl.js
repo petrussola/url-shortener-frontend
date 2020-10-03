@@ -68,16 +68,7 @@ const StyledDiv = styled.div`
 	}
 `;
 
-const AddUrl = ({
-	location,
-	match,
-	history,
-	shortUrl,
-	setShortUrl,
-	setListUrlsUser,
-	listUrlsUser,
-	loggedUser,
-}) => {
+const AddUrl = ({ shortUrl, setShortUrl, setListUrlsUser, loggedUser }) => {
 	const [urlInput, setUrlInput] = useState('');
 	const [protocolInput, setProtocolInput] = useState('https://');
 	const [error, setError] = useState(null);
