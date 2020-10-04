@@ -48,6 +48,10 @@ const UserActive = ({ user, setUsersToBeApproved, setAllUsers }) => {
 				<span>Approved for use? </span>
 				{user.approved ? 'true' : 'false'}
 			</div>
+			<div>
+				<span>Count of urls: </span>
+				{user.count}
+			</div>
 			<button onClick={() => disapproveUser(user.id)}>Disapprove</button>
 		</StyledDiv>
 	);
