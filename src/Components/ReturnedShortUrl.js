@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
+
+// helpers
+import copyToClipboard from '../Helpers/helpers';
 
 const StyledDiv = styled.div`
 	display: flex;
@@ -34,7 +37,8 @@ const StyledDiv = styled.div`
 	}
 `;
 
-const ReturnedShortUrl = ({ shortUrl, copyToClipboard, textAreaRef }) => {
+const ReturnedShortUrl = ({ shortUrl }) => {
+	const textAreaRef = useRef(null);
 	// set hostname to show user
 	const hostname = window.location.href;
 	// if no returned url from server components doesn't display
@@ -44,7 +48,9 @@ const ReturnedShortUrl = ({ shortUrl, copyToClipboard, textAreaRef }) => {
 	return (
 		<StyledDiv>
 			<h4 ref={textAreaRef}>{`${hostname}${shortUrl}`}</h4>
-			<button onClick={copyToClipboard}>Copy to clipboard</button>
+			<button onClick={() => copyToClipboard(textAreaRef)}>
+				Copy to clipboard
+			</button>
 		</StyledDiv>
 	);
 };
