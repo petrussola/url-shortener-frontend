@@ -18,7 +18,6 @@ const UserToBeApproved = ({ user, setUsersToBeApproved, setAllUsers }) => {
 			const res = await axiosInstance.post(`${baseApi}/auth/approve-user`, {
 				id: user.id,
 			});
-			debugger;
 			setUsersToBeApproved(res.data.tobeapproved);
 			setAllUsers(res.data.allUsers);
 		} catch (error) {}

@@ -97,7 +97,6 @@ const Login = ({
 			setAllUsers(res.data.allusers);
 			history.push('/');
 		} catch (error) {
-			debugger;
 			// set message to failure
 			setDisplayMessage(error.response.data.message);
 		}

@@ -7,7 +7,7 @@ import baseApi from '../Config/config';
 import axiosInstance from '../Config/axios';
 
 // dependencies
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
 require('dotenv').config();
@@ -81,7 +81,6 @@ const AddUrl = ({
 	const [protocolInput, setProtocolInput] = useState('https://');
 	const [error, setError] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
-	const textAreaRef = useRef(null);
 
 	const changeUrlHandler = (e) => {
 		setUrlInput(e.target.value);
@@ -114,26 +113,6 @@ const AddUrl = ({
 				setIsLoading(false);
 				setError(error.message);
 			});
-	};
-
-	const copyToClipboard = (e) => {
-		let currentNode = textAreaRef.current;
-		// https://stackoverflow.com/a/61606470/3630417
-		if (document.body.createTextRange) {
-			const range = document.body.createTextRange();
-			range.moveToElementText(currentNode);
-			range.select();
-			document.execCommand('copy');
-			range.remove();
-		} else if (window.getSelection) {
-			const selection = window.getSelection();
-			const range = document.createRange();
-			range.selectNodeContents(currentNode);
-			selection.removeAllRanges();
-			selection.addRange(range);
-			document.execCommand('copy');
-			selection.removeAllRanges();
-		}
 	};
 
 	if (Object.keys(loggedUser).length === 0) {
@@ -173,11 +152,7 @@ const AddUrl = ({
 					<button type='submit'>Shorten URL</button>
 				</form>
 				{/* it displays the return short url returned by the server */}
-				<ReturnedShortUrl
-					shortUrl={shortUrl}
-					copyToClipboard={copyToClipboard}
-					textAreaRef={textAreaRef}
-				/>
+				<ReturnedShortUrl shortUrl={shortUrl} />
 			</StyledDiv>
 			{/* display list of urls by the same user */}
 		</div>

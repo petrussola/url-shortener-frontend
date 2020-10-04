@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
+
+// helpers
+import copyToClipboard from '../Helpers/helpers';
 
 const StyledDiv = styled.div`
 	display: flex;
@@ -20,15 +23,23 @@ const StyledDiv = styled.div`
 		background-color: #187bcd;
 		color: white;
 	}
+	#copy-button:hover {
+		background: #c9e8f7;
+		cursor: pointer;
+	}
 `;
 
 const UrlItem = ({ url }) => {
+	const textAreaRef = useRef(null);
 	// set hostname to show user
 	const hostname = window.location.href;
 	return (
 		<StyledDiv>
 			<h3>{url.longUrl}</h3>
-			<h3 id='shortened'>{`${hostname}${url.shortUrl}`}</h3>
+			<h3 id='shortened' ref={textAreaRef}>{`${hostname}${url.shortUrl}`}</h3>
+			<h3 onClick={() => copyToClipboard(textAreaRef)} id='copy-button'>
+				Copy to Clipboard
+			</h3>
 		</StyledDiv>
 	);
 };

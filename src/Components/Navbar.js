@@ -5,9 +5,10 @@ import Logout from './Auth/Logout';
 const Navbar = ({
 	history,
 	setDisplayMessage,
-	setIsLoggedIn,
 	isLoggedIn,
 	loggedUser,
+	logOutAllState,
+	usersToBeApproved,
 }) => {
 	if (!loggedUser.approved || !isLoggedIn) {
 		return null;
@@ -16,12 +17,12 @@ const Navbar = ({
 		<div>
 			<Logout
 				setDisplayMessage={setDisplayMessage}
-				setIsLoggedIn={setIsLoggedIn}
-				isLoggedIn={isLoggedIn}
-				loggedUser={loggedUser}
 				history={history}
+				logOutAllState={logOutAllState}
 			/>
-			{!loggedUser.admin ? null : <Link to='/admin'>Admin Panel</Link>}
+			{!loggedUser.admin ? null : (
+				<Link to='/admin'>{`Admin Panel (${usersToBeApproved.length})`}</Link>
+			)}
 		</div>
 	);
 };
