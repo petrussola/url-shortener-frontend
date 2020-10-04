@@ -41,6 +41,15 @@ function App() {
 		getCsrfToken();
 	}, []);
 
+	const logOutAllState = () => {
+		setIsLoggedIn(false);
+		setShortUrl(null);
+		setLoggedUser({});
+		setListUrlsUser([]);
+		setUsersToBeApproved([]);
+		setAllUsers([]);
+	};
+
 	return (
 		<div className='App'>
 			<Route
@@ -49,10 +58,9 @@ function App() {
 					<Navbar
 						{...props}
 						setDisplayMessage={setDisplayMessage}
-						setIsLoggedIn={setIsLoggedIn}
 						isLoggedIn={isLoggedIn}
 						loggedUser={loggedUser}
-						setShortUrl={setShortUrl}
+						logOutAllState={logOutAllState}
 					/>
 				)}
 			/>

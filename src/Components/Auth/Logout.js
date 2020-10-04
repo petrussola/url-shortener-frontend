@@ -16,13 +16,12 @@ const StyledButton = styled.button`
 	}
 `;
 
-const Logout = ({ history, setDisplayMessage, setIsLoggedIn, setShortUrl }) => {
+const Logout = ({ history, setDisplayMessage, logOutAllState }) => {
 	const logOutHandler = () => {
 		axiosInstance
 			.get(`${baseApi}/auth/logout`)
 			.then((res) => {
-				setIsLoggedIn(false);
-				setShortUrl(null);
+				logOutAllState();
 				history.push('/login');
 			})
 			.catch((error) => {
