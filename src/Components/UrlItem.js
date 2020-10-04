@@ -23,6 +23,10 @@ const StyledDiv = styled.div`
 		background-color: #187bcd;
 		color: white;
 	}
+	#copy-button:hover {
+		background: #c9e8f7;
+		cursor: pointer;
+	}
 `;
 
 const UrlItem = ({ url }) => {
@@ -33,7 +37,9 @@ const UrlItem = ({ url }) => {
 		<StyledDiv>
 			<h3>{url.longUrl}</h3>
 			<h3 id='shortened' ref={textAreaRef}>{`${hostname}${url.shortUrl}`}</h3>
-			<h3 onClick={() => copyToClipboard(textAreaRef)}>Copy to Clipboard</h3>
+			<h3 onClick={() => copyToClipboard(textAreaRef)} id='copy-button'>
+				Copy to Clipboard
+			</h3>
 		</StyledDiv>
 	);
 };
