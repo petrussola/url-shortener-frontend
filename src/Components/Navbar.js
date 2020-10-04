@@ -8,6 +8,7 @@ const Navbar = ({
 	setIsLoggedIn,
 	isLoggedIn,
 	loggedUser,
+	setShortUrl,
 }) => {
 	if (!loggedUser.approved || !isLoggedIn) {
 		return null;
@@ -20,6 +21,7 @@ const Navbar = ({
 				isLoggedIn={isLoggedIn}
 				loggedUser={loggedUser}
 				history={history}
+				setShortUrl={setShortUrl}
 			/>
 			{!loggedUser.admin ? null : <Link to='/admin'>Admin Panel</Link>}
 		</div>

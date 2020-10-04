@@ -52,6 +52,7 @@ function App() {
 						setIsLoggedIn={setIsLoggedIn}
 						isLoggedIn={isLoggedIn}
 						loggedUser={loggedUser}
+						setShortUrl={setShortUrl}
 					/>
 				)}
 			/>
