@@ -61,6 +61,7 @@ function App() {
 						isLoggedIn={isLoggedIn}
 						loggedUser={loggedUser}
 						logOutAllState={logOutAllState}
+						usersToBeApproved={usersToBeApproved}
 					/>
 				)}
 			/>

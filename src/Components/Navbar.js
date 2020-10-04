@@ -8,6 +8,7 @@ const Navbar = ({
 	isLoggedIn,
 	loggedUser,
 	logOutAllState,
+	usersToBeApproved,
 }) => {
 	if (!loggedUser.approved || !isLoggedIn) {
 		return null;
@@ -19,7 +20,9 @@ const Navbar = ({
 				history={history}
 				logOutAllState={logOutAllState}
 			/>
-			{!loggedUser.admin ? null : <Link to='/admin'>Admin Panel</Link>}
+			{!loggedUser.admin ? null : (
+				<Link to='/admin'>{`Admin Panel (${usersToBeApproved.length})`}</Link>
+			)}
 		</div>
 	);
 };
