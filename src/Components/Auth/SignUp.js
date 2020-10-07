@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link as Rlink } from 'react-router-dom';
+import { TextField, Grid, Button, Link } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 // helpers
 import baseApi from '../../Config/config';
@@ -62,9 +64,15 @@ const StyledDiv = styled.div`
 	}
 `;
 
+const useStyles = makeStyles((theme) => ({
+	submit: {
+		margin: theme.spacing(3, 0, 2),
+	},
+}));
+
 const SignUp = ({ displayMessage, setDisplayMessage }) => {
 	const [formValue, setFormValue] = useState(initialForm);
-	// const [displayMessage, setDisplayMessage] = useState('');
+	const classes = useStyles();
 
 	// when user inputs data in the form
 	const onChangeFormInput = (e) => {
@@ -103,43 +111,66 @@ const SignUp = ({ displayMessage, setDisplayMessage }) => {
 				<FeedbackMessage displayMessage={displayMessage} />
 			) : null}
 			<form onSubmit={onSubmitForm}>
-				<section>
-					<label htmlFor='email'>Email</label>
-					<input
-						type='email'
-						id='email'
-						value={formValue.email}
-						placeholder='Email'
-						onChange={onChangeFormInput}
-					/>
-				</section>
-				<section>
-					<label htmlFor='password'>Password</label>
-					<input
-						type='password'
-						id='password'
-						value={formValue.password}
-						placeholder='Password'
-						onChange={onChangeFormInput}
-					/>
-				</section>
-				<section>
-					<label htmlFor='repeatPassword'>Confirm Password</label>
-					<input
-						type='password'
-						id='repeatPassword'
-						value={formValue.repeatPassword}
-						placeholder='Confirm your password'
-						onChange={onChangeFormInput}
-					/>
-				</section>
-				<section>
-					<button type='submit'>Submit</button>
-				</section>
+				<Grid container spacing={2}>
+					<Grid item xs={12}>
+						<TextField
+							type='email'
+							id='email'
+							label='Email'
+							required
+							autoComplete
+							variant='outlined'
+							fullWidth
+							onChange={onChangeFormInput}
+							value={formValue.email}
+						/>
+					</Grid>
+					<Grid item xs={12}>
+						<TextField
+							type='password'
+							id='password'
+							label='Password'
+							required
+							variant='outlined'
+							fullWidth
+							onChange={onChangeFormInput}
+							value={formValue.password}
+						/>
+					</Grid>
+					<Grid item xs={12}>
+						<TextField
+							type='password'
+							id='repeatPassword'
+							label='Confirm Password'
+							required
+							variant='outlined'
+							fullWidth
+							onChange={onChangeFormInput}
+							value={formValue.repeatPassword}
+						/>
+					</Grid>
+				</Grid>
+				<Button
+					type='submit'
+					color='primary'
+					variant='contained'
+					className={classes.submit}
+				>
+					Sign Up
+				</Button>
+				<Grid container spacing={2}>
+					<Grid item xs={12}>
+						<Link
+							underline='hover'
+							color='secondary'
+							component={Rlink}
+							to='/login'
+						>
+							Already registered? Log in here.
+						</Link>
+					</Grid>
+				</Grid>
 			</form>
-			<div>
-				Already registered? Log in <Link to='/login'>here</Link>.
-			</div>
 		</StyledDiv>
 	);
 };
