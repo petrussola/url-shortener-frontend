@@ -98,7 +98,6 @@ const SignUp = ({ displayMessage, setDisplayMessage }) => {
 							id='email'
 							label='Email'
 							required
-							autoComplete
 							variant='outlined'
 							fullWidth
 							onChange={onChangeFormInput}
