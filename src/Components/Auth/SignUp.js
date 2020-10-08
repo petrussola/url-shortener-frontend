@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { Link as Rlink } from 'react-router-dom';
-import { TextField, Grid, Button, Link } from '@material-ui/core';
+import {
+	TextField,
+	Grid,
+	Button,
+	Link,
+	Container,
+	CssBaseline,
+	Avatar,
+	Typography,
+} from '@material-ui/core';
+import LockIcon from '@material-ui/icons/Lock';
 import { makeStyles } from '@material-ui/core/styles';
 
 // helpers
@@ -17,56 +26,22 @@ const initialForm = {
 	repeatPassword: '',
 };
 
-const StyledDiv = styled.div`
-	border: 1px solid #cccccc;
-	width: 50vw;
-	min-height: 30vh;
-	margin: 100px auto;
-	border-radius: 4px;
-	box-shadow: 2px 4px 5px #cccccc;
-	color: #7c7c7c;
-	@media (max-width: 600px) {
-		width: 90%;
-	}
-	form {
-		display: flex;
-		flex-direction: column;
-		width: 80%;
-		margin: 0 auto;
-		section {
-			margin: 0.5rem 0;
-			display: flex;
-			flex-direction: column;
-			align-items: flex-start;
-			label {
-				font-size: 90%;
-			}
-			input {
-				width: 100%;
-				height: 2rem;
-				padding: 0.5rem 1rem;
-				font-size: 1.5rem;
-				@media (max-width: 600px) {
-					height: 3rem;
-				}
-			}
-			button {
-				width: 50%;
-				margin: 0 auto;
-				border: none;
-				height: 3rem;
-				background-color: #187bcd;
-				border-radius: 4px;
-				font-size: 1rem;
-				color: white;
-			}
-		}
-	}
-`;
-
 const useStyles = makeStyles((theme) => ({
 	submit: {
 		margin: theme.spacing(3, 0, 2),
+	},
+	paper: {
+		marginTop: theme.spacing(8),
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+	},
+	avatar: {
+		backgroundColor: theme.palette.secondary.main,
+		margin: theme.spacing(1),
+	},
+	form: {
+		marginTop: theme.spacing(3),
 	},
 }));
 
@@ -106,11 +81,16 @@ const SignUp = ({ displayMessage, setDisplayMessage }) => {
 	};
 
 	return (
-		<StyledDiv>
+		<Container maxWidth='xs' className={classes.paper}>
+			<CssBaseline />
 			{displayMessage ? (
 				<FeedbackMessage displayMessage={displayMessage} />
 			) : null}
-			<form onSubmit={onSubmitForm}>
+			<Avatar className={classes.avatar}>
+				<LockIcon />
+			</Avatar>
+			<Typography variant='h5'>Sign Up</Typography>
+			<form onSubmit={onSubmitForm} className={classes.form}>
 				<Grid container spacing={2}>
 					<Grid item xs={12}>
 						<TextField
@@ -155,6 +135,7 @@ const SignUp = ({ displayMessage, setDisplayMessage }) => {
 					color='primary'
 					variant='contained'
 					className={classes.submit}
+					fullWidth
 				>
 					Sign Up
 				</Button>
@@ -171,7 +152,7 @@ const SignUp = ({ displayMessage, setDisplayMessage }) => {
 					</Grid>
 				</Grid>
 			</form>
-		</StyledDiv>
+		</Container>
 	);
 };
 
