@@ -1,6 +1,17 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link as RLink } from 'react-router-dom';
+import {
+	TextField,
+	Grid,
+	Button,
+	Container,
+	CssBaseline,
+	Link,
+	Avatar,
+	Typography,
+} from '@material-ui/core';
+import LockIcon from '@material-ui/icons/Lock';
+import { makeStyles } from '@material-ui/core/styles';
 
 // helpers
 import baseApi from '../../Config/config';
@@ -14,52 +25,24 @@ const initialUser = {
 	password: '',
 };
 
-const StyledDiv = styled.div`
-	border: 1px solid #cccccc;
-	width: 50vw;
-	min-height: 30vh;
-	margin: 100px auto;
-	border-radius: 4px;
-	box-shadow: 2px 4px 5px #cccccc;
-	color: #7c7c7c;
-	@media (max-width: 600px) {
-		width: 90%;
-	}
-	form {
-		display: flex;
-		flex-direction: column;
-		padding: 1rem;
-		margin: 0 auto;
-		section {
-			margin: 0.5rem 0;
-			display: flex;
-			flex-direction: column;
-			align-items: flex-start;
-			label {
-				font-size: 90%;
-			}
-			input {
-				width: 100%;
-				height: 2rem;
-				padding: 0.5rem 1rem;
-				font-size: 1rem;
-				@media (max-width: 600px) {
-					height: 3rem;
-				}
-			}
-			button {
-				width: 50%;
-				margin: 0 auto;
-				border: none;
-				height: 3rem;
-				background-color: #187bcd;
-				border-radius: 4px;
-				font-size: 1rem;
-				color: white;
-			}
-		}
-	}
-`;
+const useStyles = makeStyles((theme) => ({
+	submit: {
+		margin: theme.spacing(3, 0, 2),
+	},
+	paper: {
+		marginTop: theme.spacing(8),
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+	},
+	form: {
+		marginTop: theme.spacing(3),
+	},
+	avatar: {
+		backgroundColor: theme.palette.secondary.main,
+		margin: theme.spacing(1),
+	},
+}));
 
 const Login = ({
 	displayMessage,
@@ -73,6 +56,7 @@ const Login = ({
 	setAllUsers,
 }) => {
 	const [logInUser, setLogInUser] = useState(initialUser);
+	const classes = useStyles();
 
 	// when user types in credentials
 	const onChangeHandler = (e) => {
@@ -105,39 +89,60 @@ const Login = ({
 	// 	return <Redirect to='/' />;
 	// }
 	return (
-		<StyledDiv>
+		<Container maxWidth='xs' className={classes.paper}>
+			<CssBaseline />
 			{displayMessage ? (
 				<FeedbackMessage displayMessage={displayMessage} />
 			) : null}
-			<form onSubmit={logInHandler}>
-				<section>
-					<label htmlFor='email'>Email</label>
-					<input
-						type='text'
-						id='email'
-						placeholder='Email'
-						value={logInUser.email}
-						onChange={onChangeHandler}
-					/>
-				</section>
-				<section>
-					<label htmlFor='email'>Password</label>
-					<input
-						type='password'
-						id='password'
-						placeholder='Password'
-						value={logInUser.password}
-						onChange={onChangeHandler}
-					/>
-				</section>
-				<section>
-					<button type='submit'>Login</button>
-				</section>
+			<Avatar className={classes.avatar}>
+				<LockIcon />
+			</Avatar>
+			<Typography variant='h5'>Log In</Typography>
+			<form onSubmit={logInHandler} className={classes.form}>
+				<Grid container spacing={2}>
+					<Grid item xs={12}>
+						<TextField
+							type='email'
+							id='email'
+							label='Email'
+							required
+							variant='outlined'
+							fullWidth
+							onChange={onChangeHandler}
+							value={logInUser.email}
+						/>
+					</Grid>
+					<Grid item xs={12}>
+						<TextField
+							type='password'
+							id='password'
+							label='Password'
+							required
+							variant='outlined'
+							fullWidth
+							onChange={onChangeHandler}
+							value={logInUser.password}
+						/>
+					</Grid>
+				</Grid>
+				<Button
+					type='submit'
+					color='primary'
+					variant='contained'
+					className={classes.submit}
+					fullWidth
+				>
+					Sign In
+				</Button>
+				<Grid container justify='center'>
+					<Grid item>
+						<Link variant='body2' component={RLink} to='/signup'>
+							Not registered? Sign up here.
+						</Link>
+					</Grid>
+				</Grid>
 			</form>
-			<div>
-				Not registered? Sign up <Link to='/signup'>here</Link>.
-			</div>
-		</StyledDiv>
+		</Container>
 	);
 };
 
