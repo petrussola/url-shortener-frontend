@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 // helpers
 import baseApi from '../../Config/config';
@@ -16,7 +18,16 @@ const StyledButton = styled.button`
 	}
 `;
 
+const useStyles = makeStyles((theme) => ({
+	button: {
+		color: 'white',
+		borderColor: 'white',
+	},
+}));
+
 const Logout = ({ history, setDisplayMessage, logOutAllState }) => {
+	const classes = useStyles();
+
 	const logOutHandler = () => {
 		axiosInstance
 			.get(`${baseApi}/auth/logout`)
@@ -28,7 +39,15 @@ const Logout = ({ history, setDisplayMessage, logOutAllState }) => {
 				setDisplayMessage(error.message);
 			});
 	};
-	return <StyledButton onClick={logOutHandler}>Logout</StyledButton>;
+	return (
+		<Button
+			onClick={logOutHandler}
+			variant='outlined'
+			className={classes.button}
+		>
+			Logout
+		</Button>
+	);
 };
 
 export default Logout;
