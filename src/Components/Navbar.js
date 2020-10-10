@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 		flexGrow: 1,
 	},
 	button: {
-		marginRight: theme.spacing(2),
+		marginLeft: theme.spacing(2),
 	},
 	title: {
 		flexGrow: 1,
@@ -59,7 +59,7 @@ const Navbar = ({
 							</Badge>
 						</IconButton>
 					)}
-					<Button>
+					<Button className={classes.button}>
 						<Logout
 							setDisplayMessage={setDisplayMessage}
 							history={history}
