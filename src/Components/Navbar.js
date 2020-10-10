@@ -53,7 +53,6 @@ const Navbar = ({
 						Url Shortener
 					</Typography>
 					{!loggedUser.admin ? null : (
-						// <RLink to='/admin'>{`Admin Panel (${usersToBeApproved.length})`}</RLink>
 						<IconButton className={classes.icon} component={RLink} to='/admin'>
 							<Badge badgeContent={usersToBeApproved.length} color='secondary'>
 								<SupervisorAccountIcon fontSize='large' />
