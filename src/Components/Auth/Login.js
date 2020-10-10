@@ -5,7 +5,6 @@ import {
 	Grid,
 	Button,
 	Container,
-	CssBaseline,
 	Link,
 	Avatar,
 	Typography,
@@ -90,7 +89,6 @@ const Login = ({
 	// }
 	return (
 		<Container maxWidth='xs' className={classes.paper}>
-			<CssBaseline />
 			{displayMessage ? (
 				<FeedbackMessage displayMessage={displayMessage} />
 			) : null}

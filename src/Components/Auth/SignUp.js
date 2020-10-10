@@ -6,7 +6,6 @@ import {
 	Button,
 	Link,
 	Container,
-	CssBaseline,
 	Avatar,
 	Typography,
 } from '@material-ui/core';
@@ -82,7 +81,6 @@ const SignUp = ({ displayMessage, setDisplayMessage }) => {
 
 	return (
 		<Container maxWidth='xs' className={classes.paper}>
-			<CssBaseline />
 			{displayMessage ? (
 				<FeedbackMessage displayMessage={displayMessage} />
 			) : null}

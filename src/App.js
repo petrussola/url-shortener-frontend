@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Cookie from 'js-cookie';
+import { CssBaseline } from '@material-ui/core';
 
 // components
 
@@ -52,6 +53,7 @@ function App() {
 
 	return (
 		<div className='App'>
+			<CssBaseline />
 			<Route
 				path='/'
 				render={(props) => (
