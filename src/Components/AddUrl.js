@@ -1,6 +1,15 @@
 // components
 import ReturnedShortUrl from './ReturnedShortUrl';
 import BackButton from './Admin/Navigation/BackButton';
+import {
+	Paper,
+	FormControl,
+	Select,
+	MenuItem,
+	TextField,
+	Button,
+} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 // helpers
 import baseApi from '../Config/config';
@@ -8,67 +17,33 @@ import axiosInstance from '../Config/axios';
 
 // dependencies
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
 require('dotenv').config();
 
-const StyledDiv = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	align-items: center;
-	border: 1px solid #cccccc;
-	width: 50vw;
-	min-height: 30vh;
-	margin: 100px auto;
-	border-radius: 4px;
-	box-shadow: 2px 4px 5px #cccccc;
-	color: #7c7c7c;
-	@media (max-width: 600px) {
-		width: 90%;
-	}
-	form {
-		display: flex;
-		flex-flow: row wrap;
-		justify-content: flex-start;
-		align-items: center;
-		width: 80%;
-		margin: 1rem auto;
-		@media (max-width: 600px) {
-			width: 90%;
-		}
-		select {
-			flex-grow: 1;
-			height: 2rem;
-			font-size: 1rem;
-			@media (max-width: 600px) {
-				margin: 0.2rem;
-			}
-		}
-		input {
-			flex-grow: 1;
-			height: 2rem;
-			padding: 0.5rem 1rem;
-			font-size: 1rem;
-			@media (max-width: 600px) {
-				margin: 0.2rem;
-				height: 3rem;
-				width: 100%;
-			}
-		}
-		button {
-			flex-grow: 1;
-			border: none;
-			height: 2rem;
-			background-color: #187bcd;
-			font-size: 1rem;
-			color: white;
-			@media (max-width: 600px) {
-				margin: 0.2rem;
-			}
-		}
-	}
-`;
+const useStyles = makeStyles((theme) => ({
+	root: {
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+		minHeight: '100px',
+	},
+	paper: {
+		padding: '2rem',
+		minWidth: '50%',
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+	},
+	form: {
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	button: {
+		marginLeft: theme.spacing(1),
+	},
+}));
 
 const AddUrl = ({
 	shortUrl,
@@ -81,6 +56,8 @@ const AddUrl = ({
 	const [protocolInput, setProtocolInput] = useState('https://');
 	const [error, setError] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
+
+	const classes = useStyles();
 
 	const changeUrlHandler = (e) => {
 		setUrlInput(e.target.value);
@@ -129,31 +106,43 @@ const AddUrl = ({
 	}
 
 	return (
-		<div>
-			<StyledDiv>
+		<div className={classes.root}>
+			<Paper className={classes.paper} elevation='1'>
 				{/* if there is an error it displays the message on top */}
 				{error ? <h5 id='error-message'>{error}</h5> : null}
 				{isLoading ? <h5>Loading...</h5> : null}
-				<form onSubmit={(e) => shortenUrl(e)}>
-					<select
-						onChange={(e) => changeProtocolHandler(e)}
-						value={protocolInput}
-					>
-						<option value='http://'>http://</option>
-						<option value='https://'>https://</option>
-					</select>
-					<input
+				<form onSubmit={(e) => shortenUrl(e)} className={classes.form}>
+					<FormControl>
+						<Select
+							onChange={(e) => changeProtocolHandler(e)}
+							value={protocolInput}
+							variant='outlined'
+						>
+							<MenuItem value={'http://'}>http://</MenuItem>
+							<MenuItem value={'https://'}>https://</MenuItem>
+						</Select>
+					</FormControl>
+					<TextField
 						type='text'
 						id='url-input'
 						value={urlInput}
-						placeholder='Add your URL'
 						onChange={(e) => changeUrlHandler(e)}
+						placeholder='Add your URL'
+						variant='outlined'
 					/>
-					<button type='submit'>Shorten URL</button>
+					<Button
+						type='submit'
+						color='primary'
+						variant='contained'
+						className={classes.button}
+						size='medium'
+					>
+						Shorten URL
+					</Button>
 				</form>
 				{/* it displays the return short url returned by the server */}
 				<ReturnedShortUrl shortUrl={shortUrl} />
-			</StyledDiv>
+			</Paper>
 			{/* display list of urls by the same user */}
 		</div>
 	);
