@@ -1,7 +1,14 @@
 // components
 import ReturnedShortUrl from './ReturnedShortUrl';
 import BackButton from './Admin/Navigation/BackButton';
-import { Paper } from '@material-ui/core';
+import {
+	Paper,
+	FormControl,
+	Select,
+	MenuItem,
+	TextField,
+	Button,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 // helpers
@@ -83,6 +90,15 @@ const useStyles = makeStyles((theme) => ({
 		padding: '2rem',
 		minWidth: '50%',
 	},
+	form: {
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	button: {
+		marginLeft: '1rem',
+	},
 }));
 
 const AddUrl = ({
@@ -151,22 +167,49 @@ const AddUrl = ({
 				{/* if there is an error it displays the message on top */}
 				{error ? <h5 id='error-message'>{error}</h5> : null}
 				{isLoading ? <h5>Loading...</h5> : null}
-				<form onSubmit={(e) => shortenUrl(e)}>
-					<select
+				<form onSubmit={(e) => shortenUrl(e)} className={classes.form}>
+					<FormControl>
+						<Select
+							onChange={(e) => changeProtocolHandler(e)}
+							value={protocolInput}
+							variant='outlined'
+						>
+							<MenuItem value={'http://'}>http://</MenuItem>
+							<MenuItem value={'https://'}>https://</MenuItem>
+						</Select>
+					</FormControl>
+					<TextField
+						type='text'
+						id='url-input'
+						value={urlInput}
+						onChange={(e) => changeUrlHandler(e)}
+						placeholder='Add your URL'
+						variant='outlined'
+					/>
+					<Button
+						type='submit'
+						color='primary'
+						variant='contained'
+						className={classes.button}
+						size='medium'
+					>
+						Shorten URL
+					</Button>
+					{/* <select
 						onChange={(e) => changeProtocolHandler(e)}
 						value={protocolInput}
 					>
 						<option value='http://'>http://</option>
 						<option value='https://'>https://</option>
-					</select>
-					<input
+					</select> */}
+					{/* <input
 						type='text'
 						id='url-input'
 						value={urlInput}
 						placeholder='Add your URL'
 						onChange={(e) => changeUrlHandler(e)}
-					/>
-					<button type='submit'>Shorten URL</button>
+					/> */}
+					{/* <button type='submit'>Shorten URL</button> */}
 				</form>
 				{/* it displays the return short url returned by the server */}
 				<ReturnedShortUrl shortUrl={shortUrl} />
