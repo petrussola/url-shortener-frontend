@@ -1,6 +1,8 @@
 // components
 import ReturnedShortUrl from './ReturnedShortUrl';
 import BackButton from './Admin/Navigation/BackButton';
+import { Paper } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 // helpers
 import baseApi from '../Config/config';
@@ -70,6 +72,19 @@ const StyledDiv = styled.div`
 	}
 `;
 
+const useStyles = makeStyles((theme) => ({
+	root: {
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+		minHeight: '100px',
+	},
+	paper: {
+		padding: '2rem',
+		minWidth: '50%',
+	},
+}));
+
 const AddUrl = ({
 	shortUrl,
 	setShortUrl,
@@ -81,6 +96,8 @@ const AddUrl = ({
 	const [protocolInput, setProtocolInput] = useState('https://');
 	const [error, setError] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
+
+	const classes = useStyles();
 
 	const changeUrlHandler = (e) => {
 		setUrlInput(e.target.value);
@@ -129,8 +146,8 @@ const AddUrl = ({
 	}
 
 	return (
-		<div>
-			<StyledDiv>
+		<div className={classes.root}>
+			<Paper className={classes.paper} elevation='1'>
 				{/* if there is an error it displays the message on top */}
 				{error ? <h5 id='error-message'>{error}</h5> : null}
 				{isLoading ? <h5>Loading...</h5> : null}
@@ -153,7 +170,7 @@ const AddUrl = ({
 				</form>
 				{/* it displays the return short url returned by the server */}
 				<ReturnedShortUrl shortUrl={shortUrl} />
-			</StyledDiv>
+			</Paper>
 			{/* display list of urls by the same user */}
 		</div>
 	);
