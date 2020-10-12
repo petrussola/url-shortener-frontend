@@ -9,8 +9,8 @@ const StyledDiv = styled.div`
 	flex-flow: column;
 	justify-content: space-around;
 	align-items: center;
-	max-width: 70vw;
-	margin: 0 auto;
+	max-width: 100vw;
+	margin: 2rem auto;
 `;
 
 const ListUrlsUser = ({ listUrlsUser, loggedUser }) => {

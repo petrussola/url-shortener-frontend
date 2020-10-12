@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
 		justifyContent: 'center',
 		alignItems: 'center',
 		minHeight: '100px',
+		marginTop: theme.spacing(4),
 	},
 	paper: {
 		padding: '2rem',
