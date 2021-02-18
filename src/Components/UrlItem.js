@@ -1,27 +1,59 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useRef } from 'react';
+import {
+	Accordion,
+	AccordionSummary,
+	AccordionDetails,
+	Typography,
+	Button,
+} from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { makeStyles } from '@material-ui/core/styles';
 
-const StyledDiv = styled.div`
-	border: 1px solid red;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	max-width: 80vw;
-	margin: 0.5rem auto;
-	h3 {
-		padding: 0.2rem;
-	}
-`;
+// helpers
+import copyToClipboard from '../Helpers/helpers';
+
+const useStyles = makeStyles((theme) => ({
+	root: {
+		width: '100%',
+	},
+	details: {
+		display: 'flex',
+		flexDirection: 'row',
+		flexWrap: 'wrap',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+	},
+}));
 
 const UrlItem = ({ url }) => {
+	const textAreaRef = useRef(null);
+
+	const classes = useStyles();
 	// set hostname to show user
 	const hostname = window.location.href;
 	return (
-		<StyledDiv>
-			<h3>{url.longUrl}</h3>
-			<h3>{`${hostname}${url.shortUrl}`}</h3>
-		</StyledDiv>
+		<Accordion className={classes.root}>
+			<AccordionSummary expandIcon={<ExpandMoreIcon />}>
+				<Typography>{url.longUrl}</Typography>
+			</AccordionSummary>
+			<AccordionDetails className={classes.details}>
+				<Typography id='shortened' ref={textAreaRef}>
+					{`${hostname}${url.shortUrl}`}
+				</Typography>
+				<Button
+					onClick={() => copyToClipboard(textAreaRef)}
+					id='copy-button'
+					color='primary'
+					variant='outlined'
+				>
+					Copy to Clipboard
+				</Button>
+				{/* <h3 id='shortened' ref={textAreaRef}>{`${hostname}${url.shortUrl}`}</h3>
+			<h3 onClick={() => copyToClipboard(textAreaRef)} id='copy-button'>
+			Copy to Clipboard
+		</h3> */}
+			</AccordionDetails>
+		</Accordion>
 	);
 };
 

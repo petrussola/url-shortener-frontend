@@ -1,29 +1,64 @@
 // components
 import ReturnedShortUrl from './ReturnedShortUrl';
-import ListUrlsUser from './ListUrlsUser';
+import BackButton from './Admin/Navigation/BackButton';
+import {
+	Paper,
+	FormControl,
+	Select,
+	MenuItem,
+	TextField,
+	Button,
+} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 // helpers
 import baseApi from '../Config/config';
 import axiosInstance from '../Config/axios';
 
 // dependencies
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 require('dotenv').config();
 
+const useStyles = makeStyles((theme) => ({
+	root: {
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+		minHeight: '100px',
+		marginTop: theme.spacing(4),
+	},
+	paper: {
+		padding: '2rem',
+		minWidth: '50%',
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+	},
+	form: {
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	button: {
+		marginLeft: theme.spacing(1),
+	},
+}));
+
 const AddUrl = ({
-	location,
-	match,
-	history,
 	shortUrl,
 	setShortUrl,
 	setListUrlsUser,
-	listUrlsUser,
+	loggedUser,
+	match,
 }) => {
 	const [urlInput, setUrlInput] = useState('');
 	const [protocolInput, setProtocolInput] = useState('https://');
 	const [error, setError] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
-	const textAreaRef = useRef(null);
+
+	const classes = useStyles();
 
 	const changeUrlHandler = (e) => {
 		setUrlInput(e.target.value);
@@ -58,56 +93,58 @@ const AddUrl = ({
 			});
 	};
 
-	const copyToClipboard = (e) => {
-		let currentNode = textAreaRef.current;
-		// https://stackoverflow.com/a/61606470/3630417
-		if (document.body.createTextRange) {
-			const range = document.body.createTextRange();
-			range.moveToElementText(currentNode);
-			range.select();
-			document.execCommand('copy');
-			range.remove();
-		} else if (window.getSelection) {
-			const selection = window.getSelection();
-			const range = document.createRange();
-			range.selectNodeContents(currentNode);
-			selection.removeAllRanges();
-			selection.addRange(range);
-			document.execCommand('copy');
-			selection.removeAllRanges();
-		}
-	};
+	if (Object.keys(loggedUser).length === 0) {
+		return <Redirect to='/login' />;
+	}
+
+	if (Object.keys(loggedUser).length !== 0 && !loggedUser.approved) {
+		return (
+			<section>
+				<div>Your request is pending approval</div>
+				<BackButton match={match} destination='login' />
+			</section>
+		);
+	}
 
 	return (
-		<div>
-			{/* if there is an error it displays the message on top */}
-			{error ? <h5 id='error-message'>{error}</h5> : null}
-			{isLoading ? <h5>Loading...</h5> : null}
-			<form onSubmit={(e) => shortenUrl(e)}>
-				<select
-					onChange={(e) => changeProtocolHandler(e)}
-					value={protocolInput}
-				>
-					<option value='http://'>http://</option>
-					<option value='https://'>https://</option>
-				</select>
-				<input
-					type='text'
-					id='url-input'
-					value={urlInput}
-					placeholder='Add your URL'
-					onChange={(e) => changeUrlHandler(e)}
-				/>
-				<button type='submit'>Shorten URL</button>
-			</form>
-			{/* it displays the return short url returned by the server */}
-			<ReturnedShortUrl
-				shortUrl={shortUrl}
-				copyToClipboard={copyToClipboard}
-				textAreaRef={textAreaRef}
-			/>
+		<div className={classes.root}>
+			<Paper className={classes.paper} elevation='1'>
+				{/* if there is an error it displays the message on top */}
+				{error ? <h5 id='error-message'>{error}</h5> : null}
+				{isLoading ? <h5>Loading...</h5> : null}
+				<form onSubmit={(e) => shortenUrl(e)} className={classes.form}>
+					<FormControl>
+						<Select
+							onChange={(e) => changeProtocolHandler(e)}
+							value={protocolInput}
+							variant='outlined'
+						>
+							<MenuItem value={'http://'}>http://</MenuItem>
+							<MenuItem value={'https://'}>https://</MenuItem>
+						</Select>
+					</FormControl>
+					<TextField
+						type='text'
+						id='url-input'
+						value={urlInput}
+						onChange={(e) => changeUrlHandler(e)}
+						placeholder='Add your URL'
+						variant='outlined'
+					/>
+					<Button
+						type='submit'
+						color='primary'
+						variant='contained'
+						className={classes.button}
+						size='medium'
+					>
+						Shorten URL
+					</Button>
+				</form>
+				{/* it displays the return short url returned by the server */}
+				<ReturnedShortUrl shortUrl={shortUrl} />
+			</Paper>
 			{/* display list of urls by the same user */}
-			<ListUrlsUser listUrlsUser={listUrlsUser} />
 		</div>
 	);
 };

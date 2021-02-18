@@ -12,6 +12,7 @@ const FetchUrl = ({
 	setError,
 	newUrl,
 	setNewUrl,
+	isLoggedIn,
 }) => {
 	// grab the param after '/' in the url because this points to the real URL in the server
 	const { shortUrl } = match.params;
@@ -36,7 +37,9 @@ const FetchUrl = ({
 			});
 	}, [setError, setNewUrl, setRedirect, shortUrl]);
 	// when we have data back from server and not an error
-	if (redirect && !error) {
+	if (isLoggedIn) {
+		return null;
+	} else if (redirect && !error) {
 		// redirect to new url
 		window.location.href = newUrl;
 		return <div>Redirecting...</div>;

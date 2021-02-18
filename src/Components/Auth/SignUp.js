@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link as Rlink } from 'react-router-dom';
+import {
+	TextField,
+	Grid,
+	Button,
+	Link,
+	Container,
+	Avatar,
+	Typography,
+} from '@material-ui/core';
+import LockIcon from '@material-ui/icons/Lock';
+import { makeStyles } from '@material-ui/core/styles';
 
 // helpers
 import baseApi from '../../Config/config';
@@ -15,56 +25,28 @@ const initialForm = {
 	repeatPassword: '',
 };
 
-const StyledDiv = styled.div`
-	border: 1px solid #cccccc;
-	width: 50vw;
-	min-height: 30vh;
-	margin: 100px auto;
-	border-radius: 4px;
-	box-shadow: 2px 4px 5px #cccccc;
-	color: #7c7c7c;
-	@media (max-width: 600px) {
-		width: 90%;
-	}
-	form {
-		display: flex;
-		flex-direction: column;
-		width: 80%;
-		margin: 0 auto;
-		section {
-			margin: 0.5rem 0;
-			display: flex;
-			flex-direction: column;
-			align-items: flex-start;
-			label {
-				font-size: 90%;
-			}
-			input {
-				width: 100%;
-				height: 2rem;
-				padding: 0.5rem 1rem;
-				font-size: 1.5rem;
-				@media (max-width: 600px) {
-					height: 3rem;
-				}
-			}
-			button {
-				width: 50%;
-				margin: 0 auto;
-				border: none;
-				height: 3rem;
-				background-color: #187bcd;
-				border-radius: 4px;
-				font-size: 1rem;
-				color: white;
-			}
-		}
-	}
-`;
+const useStyles = makeStyles((theme) => ({
+	submit: {
+		margin: theme.spacing(3, 0, 2),
+	},
+	paper: {
+		marginTop: theme.spacing(8),
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+	},
+	avatar: {
+		backgroundColor: theme.palette.secondary.main,
+		margin: theme.spacing(1),
+	},
+	form: {
+		marginTop: theme.spacing(3),
+	},
+}));
 
 const SignUp = ({ displayMessage, setDisplayMessage }) => {
 	const [formValue, setFormValue] = useState(initialForm);
-	// const [displayMessage, setDisplayMessage] = useState('');
+	const classes = useStyles();
 
 	// when user inputs data in the form
 	const onChangeFormInput = (e) => {
@@ -98,49 +80,76 @@ const SignUp = ({ displayMessage, setDisplayMessage }) => {
 	};
 
 	return (
-		<StyledDiv>
+		<Container maxWidth='xs' className={classes.paper}>
 			{displayMessage ? (
 				<FeedbackMessage displayMessage={displayMessage} />
 			) : null}
-			<form onSubmit={onSubmitForm}>
-				<section>
-					<label htmlFor='email'>Email</label>
-					<input
-						type='email'
-						id='email'
-						value={formValue.email}
-						placeholder='Email'
-						onChange={onChangeFormInput}
-					/>
-				</section>
-				<section>
-					<label htmlFor='password'>Password</label>
-					<input
-						type='password'
-						id='password'
-						value={formValue.password}
-						placeholder='Password'
-						onChange={onChangeFormInput}
-					/>
-				</section>
-				<section>
-					<label htmlFor='repeatPassword'>Confirm Password</label>
-					<input
-						type='password'
-						id='repeatPassword'
-						value={formValue.repeatPassword}
-						placeholder='Confirm your password'
-						onChange={onChangeFormInput}
-					/>
-				</section>
-				<section>
-					<button type='submit'>Submit</button>
-				</section>
+			<Avatar className={classes.avatar}>
+				<LockIcon />
+			</Avatar>
+			<Typography variant='h5'>Sign Up</Typography>
+			<form onSubmit={onSubmitForm} className={classes.form}>
+				<Grid container spacing={2}>
+					<Grid item xs={12}>
+						<TextField
+							type='email'
+							id='email'
+							label='Email'
+							required
+							variant='outlined'
+							fullWidth
+							onChange={onChangeFormInput}
+							value={formValue.email}
+						/>
+					</Grid>
+					<Grid item xs={12}>
+						<TextField
+							type='password'
+							id='password'
+							label='Password'
+							required
+							variant='outlined'
+							fullWidth
+							onChange={onChangeFormInput}
+							value={formValue.password}
+						/>
+					</Grid>
+					<Grid item xs={12}>
+						<TextField
+							type='password'
+							id='repeatPassword'
+							label='Confirm Password'
+							required
+							variant='outlined'
+							fullWidth
+							onChange={onChangeFormInput}
+							value={formValue.repeatPassword}
+						/>
+					</Grid>
+				</Grid>
+				<Button
+					type='submit'
+					color='primary'
+					variant='contained'
+					className={classes.submit}
+					fullWidth
+				>
+					Sign Up
+				</Button>
+				<Grid container spacing={2}>
+					<Grid item xs={12}>
+						<Link
+							underline='hover'
+							color='secondary'
+							component={Rlink}
+							to='/login'
+						>
+							Already registered? Log in here.
+						</Link>
+					</Grid>
+				</Grid>
 			</form>
-			<div>
-				Already registered? Log in <Link to='/login'>here</Link>.
-			</div>
-		</StyledDiv>
+		</Container>
 	);
 };
 
